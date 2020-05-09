@@ -1,0 +1,119 @@
+@media screen and (min-width: 769px) {
+    /* 데스크탑에서 사용될 스타일을 여기에 작성합니다. */
+
+    div.main_vl {
+        width : 0px;
+        height : 70%;
+        margin : auto 0;
+        border : 1px solid rgb(215,215,215);
+    }
+
+    div.main_container {
+        height : 50%;
+        display : flex;
+        width : 80%;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    div.main_left {
+        margin-right : 1.4rem;
+        width : 50%;
+
+        display : flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    div.main_title {
+        font-size : 8rem;
+        text-align : right;
+        font-family: 'Black Han Sans', sans-serif;
+        /*border-right : 1px solid gray;*/
+    }
+
+    div.main_title span.blank {
+        visibility: hidden;
+    }
+
+
+    div.main_right {
+        margin-left : 1.4rem;
+        width : 50%;
+
+        display : flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    div.main_subtitle{
+        font-family: 'Black Han Sans', sans-serif;
+        font-size : 3rem;
+    }
+}
+
+
+@media screen and (max-width: 769px) {
+    /* 모바일에서 사용될 스타일을 여기에 작성합니다. */
+    div.main_vl {
+        width : 70%;
+        height : 0;
+        margin : 0 auto;
+        border : 1px solid rgb(215,215,215);
+    }
+
+    div.main_container {
+        height : 50%;
+        display : flex;
+        width : 80%;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0 auto;
+    }
+
+    div.main_left {
+        margin-bottom : 1.4rem;
+        width : 100%;
+
+        display : flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    div.main_title {
+        font-size : 4rem;
+        text-align : center;
+        font-family: 'Black Han Sans', sans-serif;
+        /*border-right : 1px solid gray;*/
+    }
+
+    div.main_title span.blank {
+        visibility: hidden;
+    }
+
+
+    div.main_right {
+        margin-top : 1.4rem;
+        width : 100%;
+
+        display : flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    div.main_subtitle{
+        text-align : center;
+        font-family: 'Black Han Sans', sans-serif;
+        font-size : 3rem;
+    }
+}
+
+@media screen and (max-width: 1285px) and (min-width: 769px){
+    div.main_title {
+        font-size : 5.3rem;
+
+    }
+
+    div.main_subtitle{
+
+        font-size : 2.5rem;
+    }
+}
