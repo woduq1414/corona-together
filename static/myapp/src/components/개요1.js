@@ -14,7 +14,7 @@ const 개요1 = props => {
         <React.Fragment>
             <div className={"outline_container"}>
                 <div className={"outline_title"}>
-                    코로나 시작으로부터 <CountUp end={115} duration={5} onEnd={({start}) => start()}/>일째,
+                    코로나 시작으로부터 <span className={"anime numCounter pos_1_0"} start={0} end={115}></span>일째,
                 </div>
                 <div className={"outline_infoContainer"}>
                     <div className={"outline_info"}>
@@ -22,7 +22,7 @@ const 개요1 = props => {
                             <img className={"outline_image"} src={require('../images/test.png')}/>
                         </div>
                         <div className={"outline_text"}>
-                            <span className={"numCounter"}>0</span>명 검사
+                            <span className={"anime numCounter pos_1_0"} start={0} end={698574}>0</span>명 검사
                         </div>
                     </div>
                     <div className={"outline_info"}>
@@ -30,7 +30,7 @@ const 개요1 = props => {
                             <img className={"outline_image"} src={require('../images/test.png')}/>
                         </div>
                         <div className={"outline_text"}>
-                            <CountUp end={46542} duration={10}/>명 확진
+                             <span className={"anime numCounter pos_1_0"} start={0} end={48321}>0</span>명 확진
                         </div>
                     </div>
                     <div className={"outline_info"}>
@@ -38,7 +38,7 @@ const 개요1 = props => {
                             <img className={"outline_image"} src={require('../images/test.png')}/>
                         </div>
                         <div className={"outline_text"}>
-                            <CountUp end={46546} duration={10}/>명 완치
+                            <span className={"anime numCounter pos_1_0"} start={0} end={54654}>0</span>명 완치
                         </div>
                     </div>
                 </div>

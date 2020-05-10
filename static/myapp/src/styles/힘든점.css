@@ -1,7 +1,7 @@
 @media screen and (min-width: 769px) {
     /* 데스크탑에서 사용될 스타일을 여기에 작성합니다. */
     div.diff_container {
-        height: 80%;
+        height: 90%;
         display: flex;
         width: 80%;
         justify-content: space-evenly;
@@ -18,39 +18,123 @@
     }
 
     div.diff_tagContainer {
-        display : flex;
-        flex-wrap : wrap;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        flex-shrink : 0;
+        flex-shrink: 0;
     }
 
     div.diff_tag {
-        margin : 0 15px;
-        font-size : 1.5rem;
+        margin: 5px 15px;
+        font-size: 1.5rem;
+        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+        cursor : pointer;
+    }
+    div.diff_tag.active div.diff_sharp{
+        background-color: goldenrod;
     }
 
+
     div.diff_sharp {
-        display : inline-block;
-        padding : 2px 8px;
-        background-color : #eeeeee;
-        margin-right : 0.5rem;
+        display: inline-block;
+        padding: 2px 8px;
+        background-color: #eeeeee;
+        margin-right: 0.5rem;
     }
 
     div.diff_tagName {
-        display : inline-block;
+        display: inline-block;
+        padding-right : 10px;
     }
 
     div.diff_contentContainer {
-        background-color : blue;
+        flex-grow: 1;
+        margin-top: 20px;
+        border-radius: 0.25rem;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+
+    }
+
+    div.diff_contentContainer {
+        display : flex;
+        flex-direction: column;
+    }
+
+
+    div.diff_content {
+        margin: 1rem auto;
+        width: 90%;
+        border-radius: 0.5rem;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        height : 150px;
+
+    }
+
+    div.diff_contentTitle {
+        font-size: 1.5rem;
+        padding : 1rem 3rem 1rem 3rem;
+        font-weight : bold;
+    }
+
+
+    div.diff_contentText {
+        font-size: 1.2rem;
+        padding : 0rem 3rem;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* 라인수 */
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        line-height: 1.2rem;
+        height: 2.4rem;
+
+
+    }
+
+    div.diff_more {
+        font-size: 1.2rem;
+        margin-top : 1rem;
+        padding-bottom : 0.5rem;
+        text-align: right;
+        margin-right: 1rem;
+    }
+
+
+    div.diff_footer {
+        flex-shrink : 0;
+        display : flex;
+        justify-content: space-around;
+        margin-bottom : 1rem;
+    }
+
+    div.diff_prev{
+        font-size : 1.2rem;
+        padding : 0.5rem 1rem;
+        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+    }
+    div.diff_next{
+        font-size : 1.2rem;
+        padding : 0.5rem 1rem;
+        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+    }
+
+
+    div.diff_contents {
+        display : flex;
+        flex-direction: column;
+        justify-content: space-evenly;
         flex-grow : 1;
     }
+
 
 }
 
 
 @media screen and (max-width: 769px) {
     /* 모바일에서 사용될 스타일을 여기에 작성합니다. */
-       div.diff_container {
+    div.diff_container {
         height: 80%;
         display: flex;
         width: 80%;
@@ -68,31 +152,34 @@
     }
 
     div.diff_tagContainer {
-        display : flex;
-        flex-wrap : wrap;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        flex-shrink : 0;
+        flex-shrink: 0;
     }
 
     div.diff_tag {
-        margin : 0 5px;
-        font-size : 1rem;
+        margin: 0 5px;
+        font-size: 1rem;
     }
 
     div.diff_sharp {
-        display : inline-block;
-        padding : 2px 8px;
-        background-color : #eeeeee;
-        margin-right : 0.5rem;
+        display: inline-block;
+        padding: 2px 8px;
+        background-color: #eeeeee;
+        margin-right: 0.5rem;
     }
 
     div.diff_tagName {
-        display : inline-block;
+        display: inline-block;
     }
 
     div.diff_contentContainer {
-        background-color : blue;
-        flex-grow : 1;
+        /*background-color : ;*/
+        flex-grow: 1;
+        margin-top: 20px;
+        border-radius: 0.25rem;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     }
 
 
