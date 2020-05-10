@@ -10,6 +10,20 @@
     html{font-size:16px;}
 }
 
+#메인 {
+    background-color:#3498db;
+}
+
+#개요1 {
+    background-color:white;
+}
+#개요2 {
+    background-color:ivory;
+}
+
+.fp-slidesNav ul{
+    text-align: center;
+}
 
 @media screen and (min-width: 769px) {
 
@@ -54,7 +68,7 @@
     nav ul li {
         list-style-type: none;
         font-size: 1.5rem;
-
+        text-align : right;
 
     }
 
@@ -71,9 +85,11 @@
     }
     .fp-controlArrow.fp-prev {
         margin-left : 30px;
+        border-color: transparent #dadada transparent transparent;
     }
     .fp-controlArrow.fp-next {
         margin-right : 30px;
+        border-color: transparent transparent transparent #dadada;
     }
 
 }

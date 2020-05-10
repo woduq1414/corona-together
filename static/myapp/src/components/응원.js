@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 
-import "../styles/메인.css";
+import "../styles/응원.css";
 
 
 import {withRouter} from "react-router-dom";
 
 
-const 메인 = props => {
+const 응원 = props => {
 
 
     return (
@@ -28,4 +28,4 @@ const 메인 = props => {
     );
 };
 //aa
-export default 메인;
+export default 응원;

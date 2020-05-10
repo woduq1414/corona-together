@@ -1,0 +1,108 @@
+@media screen and (min-width: 769px) {
+    /* 데스크탑에서 사용될 스타일을 여기에 작성합니다. */
+    div.diff_container {
+        height: 80%;
+        display: flex;
+        width: 80%;
+        justify-content: space-evenly;
+        flex-direction: column;
+        display: flex;
+        margin: 0px auto;
+    }
+
+    div.diff_title {
+        font-size: 3rem;
+        font-family: 'Black Han Sans', sans-serif;
+        text-align: center;
+        word-break: keep-all;
+    }
+
+    div.diff_tagContainer {
+        display : flex;
+        flex-wrap : wrap;
+        justify-content: center;
+        flex-shrink : 0;
+    }
+
+    div.diff_tag {
+        margin : 0 15px;
+        font-size : 1.5rem;
+    }
+
+    div.diff_sharp {
+        display : inline-block;
+        padding : 2px 8px;
+        background-color : #eeeeee;
+        margin-right : 0.5rem;
+    }
+
+    div.diff_tagName {
+        display : inline-block;
+    }
+
+    div.diff_contentContainer {
+        background-color : blue;
+        flex-grow : 1;
+    }
+
+}
+
+
+@media screen and (max-width: 769px) {
+    /* 모바일에서 사용될 스타일을 여기에 작성합니다. */
+       div.diff_container {
+        height: 80%;
+        display: flex;
+        width: 80%;
+        justify-content: space-evenly;
+        flex-direction: column;
+        display: flex;
+        margin: 0px auto;
+    }
+
+    div.diff_title {
+        font-size: 3rem;
+        font-family: 'Black Han Sans', sans-serif;
+        text-align: center;
+        word-break: keep-all;
+    }
+
+    div.diff_tagContainer {
+        display : flex;
+        flex-wrap : wrap;
+        justify-content: center;
+        flex-shrink : 0;
+    }
+
+    div.diff_tag {
+        margin : 0 5px;
+        font-size : 1rem;
+    }
+
+    div.diff_sharp {
+        display : inline-block;
+        padding : 2px 8px;
+        background-color : #eeeeee;
+        margin-right : 0.5rem;
+    }
+
+    div.diff_tagName {
+        display : inline-block;
+    }
+
+    div.diff_contentContainer {
+        background-color : blue;
+        flex-grow : 1;
+    }
+
+
+}
+
+@media screen and (max-width: 1285px) and (min-width: 769px) {
+
+}
+
+
+
+
+
