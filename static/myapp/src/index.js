@@ -14,6 +14,7 @@
 // serviceWorker.unregister();
 
 
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactFullpage from '@fullpage/react-fullpage';
@@ -29,6 +30,8 @@ import 개요1 from "./components/개요1"
 import 개요2 from "./components/개요2"
 import 힘든점 from "./components/힘든점"
 import 응원 from "./components/응원"
+
+
 
 
 function animate(elements) {
@@ -57,6 +60,7 @@ const Fullpage = () => {
     const [cheer, setCheer] = useState([]);
     const [tagList, setTagList] = useState(undefined);
 
+
     if (tagList == undefined) {
         setTagList(["학생", "의료진", "사람", "동물", "대통령", "고양이", "외국인", "강아지", "멍멍이", "볼리베어"])
     }
@@ -77,7 +81,7 @@ const Fullpage = () => {
 
             let temp = [];
             for (let i  = 0 ; i < 10 ; i ++){
-                temp.push({"title": `제목${i+1}`, "content": `${tagList[tag]}의 힘든 점${i+1}`})
+                temp.push({"title": `제목${i+1}`, "content": `${tagList[tag]}의 힘든 점${i+1}`.repeat(300)})
             }
 
             // setDiff({
@@ -124,6 +128,7 @@ const Fullpage = () => {
                 dragAndMove={true}
                 slidesNavigation={true}
                 slidesNavPosition={'bottom'}
+                normalScrollElements = {'.more_content'}
                 onSlideLeave={(section, origin, destination, direction) => {
                     const counters = document.querySelectorAll(`.anime[class*="pos_${section.index}_${destination.index}"]`)
                     animate(counters)

@@ -1,0 +1,124 @@
+div.wd_modalContainer {
+    width : 80%;
+    height : 90%;
+    display : flex;
+}
+
+div.wd_container {
+    margin : 0 auto;
+    display : flex;
+    flex-direction: column;
+    height : 100%;
+
+
+}
+
+div.wd_modalContent div.swal2-html-container {
+    height : 100%;
+    width : 90%;
+}
+
+
+div.wd_modalContent {
+    display : flex;
+    height : 90%;
+}
+
+div.wd_footer {
+    height : 10%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.wd_exitButton {
+    /*text-align : right;*/
+}
+
+
+
+div.wd_modalContent div.swal2-html-container {
+    height : 100%;
+}
+
+
+
+div.wd_content {
+    font-size : 1.2rem;
+    text-align : left;
+    overflow-y : auto;
+    display : flex;
+    flex-grow : 1;
+    flex-direction: column;
+}
+
+div.wd_title {
+    font-size : 2.5rem;
+    height : 2.5rem;
+    line-height : 2.5rem;
+
+    text-align : left;
+    margin-bottom : 1rem;
+    font-weight : bold;
+    display : flex;
+    flex-shrink : 0 ;
+}
+
+div.wd_header {
+    align-items: baseline;
+    display : flex;
+    margin : 0 auto;
+}
+
+
+.wd_dropdown {
+    font-size : 2.5rem;
+}
+
+.wd_subtitle {
+    font-size : 1.5rem;
+     display : flex;
+    flex-shrink: 0;
+}
+
+div.wd_titleContainer {
+    display : flex;
+    flex-shrink: 0;
+    font-size : 1.5rem;
+}
+
+div.wd_contentContainer {
+    display : flex;
+    flex-grow: 1;
+    /*font-size : 1.2rem;*/
+
+}
+
+input.wd_titleArea {
+    font-size : 2rem;
+}
+
+
+textarea.wd_contentArea {
+    width : 100%;
+    font-size:1.5rem;
+}
+
+
+.scroll::-webkit-scrollbar-track
+{
+
+
+	background-color: transparent;
+}
+
+.scroll::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: transparent;
+}
+
+.scroll::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #555;
+}

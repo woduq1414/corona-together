@@ -1,6 +1,18 @@
 import React, {useEffect, useState} from "react";
+import ReactDOM from "react-dom";
+
+import 더보기 from "./modals/더보기";
+import 힘든점쓰기 from "./modals/힘든점쓰기";
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+
+const MySwal = withReactContent(Swal)
+
 
 import "../styles/힘든점.css";
+
 
 import useDebounce from "../lib/useDebounce";
 
@@ -41,6 +53,8 @@ let diff = {
     ]
 };
 const 힘든점 = props => {
+
+
     const size = useWindowSize();
     const debouncedHeight = useDebounce(size.height, 300);
     const [limit, setLimit] = useState(2);
@@ -63,6 +77,43 @@ const 힘든점 = props => {
         props.setDiff({"startIndex": startIndex, "data": [...diff.data]})
     }
 
+    function showMore(diff) {
+
+        MySwal.fire({
+            "html": (
+                <더보기 diff={diff}/>
+            ),
+            "customClass": {
+                "popup": "more_modalContainer",
+                "content": "more_modalContent",
+                "actions": 'more_footer',
+                'confirmButton': 'more_exitButton',
+            }
+        })
+
+    }
+
+    function writeDiff() {
+
+        MySwal.fire({
+            "html": (
+                <힘든점쓰기 tagList={props.tagList}/>
+            ),
+            "customClass": {
+                "popup": "wd_modalContainer",
+                "content": "wd_modalContent",
+                "actions": 'wd_footer',
+                'confirmButton': 'wd_exitButton',
+            },
+            "showCancelButton" : true,
+            "reverseButtons" : true
+        })
+
+    }
+
+
+
+
     console.log(props.diff)
     diff = props.diff
     useEffect(() => {
@@ -84,9 +135,23 @@ const 힘든점 = props => {
 
     return (
         <React.Fragment>
-            <div className={"diff_container"}>
 
-                <div className={"diff_title"}>이런 점이 힘들어요</div>
+
+            <div className={"diff_container"}>
+                {/*<button onClick={toggleModal}>Show Modal</button>*/}
+                {/*<CustomModal*/}
+                {/*    title="Item Modal"*/}
+                {/*    isActive={itemModalOpen  }*/}
+                {/*    handleClose={() => setItemModalOpen(false)}*/}
+                {/*>*/}
+                {/*    <h1>Hey</h1>*/}
+                {/*</CustomModal>*/}
+
+                <div className={"diff_header"}>
+                    <div className={"diff_title"}>이런 점이 힘들어요</div>
+                    <div className={"diff_writeButton"} onClick={()=>{writeDiff()}}>힘든 점 쓰기</div>
+                </div>
+
                 <div className={"diff_tagContainer"}>
 
                     {props.tagList.length !== 0 &&
@@ -132,7 +197,9 @@ const 힘든점 = props => {
                                         <div className={"diff_contentText"}>
                                             {diff.content}
                                         </div>
-                                        <div className={"diff_more"}>
+                                        <div className={"diff_more"} onClick={() => {
+                                            showMore(diff)
+                                        }}>
                                             더 보기
                                         </div>
                                     </div>
@@ -186,9 +253,7 @@ const 힘든점 = props => {
                 </div>
             </div>
 
-            <div className={'icon-scroll'}></div>
         </React.Fragment>
-
 
     );
 };

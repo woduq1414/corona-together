@@ -28,9 +28,10 @@
         margin: 5px 15px;
         font-size: 1.5rem;
         box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
-        cursor : pointer;
+        cursor: pointer;
     }
-    div.diff_tag.active div.diff_sharp{
+
+    div.diff_tag.active div.diff_sharp {
         background-color: goldenrod;
     }
 
@@ -44,7 +45,7 @@
 
     div.diff_tagName {
         display: inline-block;
-        padding-right : 10px;
+        padding-right: 10px;
     }
 
     div.diff_contentContainer {
@@ -56,7 +57,7 @@
     }
 
     div.diff_contentContainer {
-        display : flex;
+        display: flex;
         flex-direction: column;
     }
 
@@ -66,20 +67,26 @@
         width: 90%;
         border-radius: 0.5rem;
         box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-        height : 150px;
-
+        height: 150px;
+        display : flex;
+        justify-content: space-evenly;
+        flex-direction: column;
     }
 
     div.diff_contentTitle {
         font-size: 1.5rem;
-        padding : 1rem 3rem 1rem 3rem;
-        font-weight : bold;
+        padding: 1rem 3rem 1rem 3rem;
+        font-weight: bold;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 
     div.diff_contentText {
         font-size: 1.2rem;
-        padding : 0rem 3rem;
+        padding: 0rem 3rem;
 
         overflow: hidden;
         text-overflow: ellipsis;
@@ -88,44 +95,61 @@
         -webkit-box-orient: vertical;
         word-wrap: break-word;
         line-height: 1.2rem;
-        height: 2.4rem;
+        /*height: 2.4rem;*/
 
 
     }
 
     div.diff_more {
         font-size: 1.2rem;
-        margin-top : 1rem;
-        padding-bottom : 0.5rem;
+        margin-top: 1rem;
+        padding-bottom: 0.5rem;
         text-align: right;
         margin-right: 1rem;
     }
 
 
     div.diff_footer {
-        flex-shrink : 0;
-        display : flex;
+        flex-shrink: 0;
+        display: flex;
         justify-content: space-around;
-        margin-bottom : 1rem;
+        margin-bottom: 1rem;
     }
 
-    div.diff_prev{
-        font-size : 1.2rem;
-        padding : 0.5rem 1rem;
+    div.diff_prev {
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
         box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
     }
-    div.diff_next{
-        font-size : 1.2rem;
-        padding : 0.5rem 1rem;
+
+    div.diff_next {
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
         box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
     }
 
 
     div.diff_contents {
-        display : flex;
+        display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        flex-grow : 1;
+        flex-grow: 1;
+    }
+
+    div.diff_header{
+        display:flex;
+        justify-content: space-between;
+    }
+
+    div.diff_writeButton {
+        vertical-align: middle;
+        line-height : 3rem;
+        height : 3rem;
+        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+        border-radius : 1rem;
+        cursor : pointer;
+        padding : 0 1rem;
+
     }
 
 
