@@ -1,4 +1,5 @@
 @media screen and (min-width: 769px) {
+    /*769 */
     /* 데스크탑에서 사용될 스타일을 여기에 작성합니다. */
     div.diff_container {
         height: 90%;
@@ -17,36 +18,7 @@
         word-break: keep-all;
     }
 
-    div.diff_tagContainer {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        flex-shrink: 0;
-    }
 
-    div.diff_tag {
-        margin: 5px 15px;
-        font-size: 1.5rem;
-        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
-        cursor: pointer;
-    }
-
-    div.diff_tag.active div.diff_sharp {
-        background-color: goldenrod;
-    }
-
-
-    div.diff_sharp {
-        display: inline-block;
-        padding: 2px 8px;
-        background-color: #eeeeee;
-        margin-right: 0.5rem;
-    }
-
-    div.diff_tagName {
-        display: inline-block;
-        padding-right: 10px;
-    }
 
     div.diff_contentContainer {
         flex-grow: 1;
@@ -68,7 +40,7 @@
         border-radius: 0.5rem;
         box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
         height: 150px;
-        display : flex;
+        display: flex;
         justify-content: space-evenly;
         flex-direction: column;
     }
@@ -136,19 +108,19 @@
         flex-grow: 1;
     }
 
-    div.diff_header{
-        display:flex;
+    div.diff_header {
+        display: flex;
         justify-content: space-between;
     }
 
     div.diff_writeButton {
         vertical-align: middle;
-        line-height : 3rem;
-        height : 3rem;
+        line-height: 3rem;
+        height: 3rem;
         box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
-        border-radius : 1rem;
-        cursor : pointer;
-        padding : 0 1rem;
+        border-radius: 1rem;
+        cursor: pointer;
+        padding: 0 1rem;
 
     }
 
@@ -159,9 +131,9 @@
 @media screen and (max-width: 769px) {
     /* 모바일에서 사용될 스타일을 여기에 작성합니다. */
     div.diff_container {
-        height: 80%;
+        height: 90%;
         display: flex;
-        width: 80%;
+        width: 90%;
         justify-content: space-evenly;
         flex-direction: column;
         display: flex;
@@ -169,41 +141,115 @@
     }
 
     div.diff_title {
-        font-size: 3rem;
+        font-size: 1.8rem;
         font-family: 'Black Han Sans', sans-serif;
         text-align: center;
         word-break: keep-all;
     }
 
-    div.diff_tagContainer {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-
-    div.diff_tag {
-        margin: 0 5px;
-        font-size: 1rem;
-    }
-
-    div.diff_sharp {
-        display: inline-block;
-        padding: 2px 8px;
-        background-color: #eeeeee;
-        margin-right: 0.5rem;
-    }
-
-    div.diff_tagName {
-        display: inline-block;
-    }
 
     div.diff_contentContainer {
-        /*background-color : ;*/
         flex-grow: 1;
         margin-top: 20px;
         border-radius: 0.25rem;
         box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+
+    }
+
+    div.diff_contentContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    div.diff_content {
+        margin: 1rem auto;
+        width: 90%;
+        border-radius: 0.5rem;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        height: 120px;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+    }
+
+    div.diff_contentTitle {
+        font-size: 1.2rem;
+        padding: .5rem 1rem .5rem 1rem;
+        font-weight: bold;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    div.diff_contentText {
+        font-size: 1rem;
+        padding: 0rem 1rem;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* 라인수 */
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        line-height: 1.2rem;
+        /*height: 2.4rem;*/
+
+
+    }
+
+    div.diff_more {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        text-align: right;
+        margin-right: 1rem;
+    }
+
+
+    div.diff_footer {
+        flex-shrink: 0;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 1rem;
+    }
+
+    div.diff_prev {
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+    }
+
+    div.diff_next {
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+    }
+
+
+    div.diff_contents {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        flex-grow: 1;
+    }
+
+    div.diff_header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    div.diff_writeButton {
+        vertical-align: middle;
+        line-height: 1.8rem;
+        height: 1.8rem;
+        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+        border-radius: 1rem;
+        cursor: pointer;
+        padding: 0 1rem;
+
     }
 
 

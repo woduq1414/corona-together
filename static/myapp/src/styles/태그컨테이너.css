@@ -1,0 +1,106 @@
+@media screen and (min-width: 769px) {
+
+    div.tag_desktop {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        width: 100%;
+    }
+
+    div.tag_mobile {
+        display: none;
+    }
+
+
+    div.tag_tagContainer {
+
+        flex-shrink: 0;
+    }
+
+    div.tag_tag {
+        margin: 5px 15px;
+        font-size: 1.5rem;
+        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+        cursor: pointer;
+    }
+
+    div.tag_tag.active div.tag_sharp {
+        background-color: goldenrod;
+    }
+
+
+    div.tag_sharp {
+        display: inline-block;
+        padding: 2px 8px;
+        background-color: #eeeeee;
+        margin-right: 0.5rem;
+    }
+
+    div.tag_tagName {
+        display: inline-block;
+        padding-right: 10px;
+    }
+}
+
+@media screen and (max-width: 769px) {
+
+    div.tag_desktop {
+        display: none;
+    }
+
+    div.tag_mobile {
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    div.tag_selectButton {
+        height: 23px;
+        line-height: 23px;
+
+        margin: 5px 5px;
+        font-size: 1rem;
+        padding: 0 2rem;
+        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+        cursor: pointer;
+    }
+
+    div.tag_tagWrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        width: 100%;
+    }
+
+
+    div.tag_tagContainer {
+
+        flex-shrink: 0;
+    }
+
+    div.tag_tag {
+        margin: 5px 5px;
+        font-size: 1rem;
+        box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+        cursor: pointer;
+    }
+
+    div.tag_tag.active div.tag_sharp {
+        background-color: goldenrod;
+    }
+
+
+    div.tag_sharp {
+        display: inline-block;
+        padding: 2px 8px;
+        background-color: #eeeeee;
+        margin-right: 0.5rem;
+    }
+
+    div.tag_tagName {
+        display: inline-block;
+        padding-right: 10px;
+    }
+}

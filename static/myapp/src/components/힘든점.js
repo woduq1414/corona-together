@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 
 import 더보기 from "./modals/더보기";
 import 힘든점쓰기 from "./modals/힘든점쓰기";
+import 태그컨테이너 from "./태그컨테이너";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -56,7 +57,7 @@ const 힘든점 = props => {
 
 
     const size = useWindowSize();
-    const debouncedHeight = useDebounce(size.height, 300);
+    const debouncedHeight = useDebounce(size.height + size.width, 300);
     const [limit, setLimit] = useState(2);
 
     function prev() {
@@ -127,8 +128,11 @@ const 힘든점 = props => {
         el.style.display = "flex";
         document.getElementsByClassName("diff_contentContainer")[0].removeChild(el2);
         //const height = document.getElementById('diff_contents').getBoundingClientRect().height;
-        setLimit(Math.floor(height / 200))
-        console.log(Math.floor(height / 200))
+
+        const oneHeight = document.getElementsByClassName("diff_content")[0].getBoundingClientRect().height * 4 / 3;
+
+        setLimit(Math.floor(height / oneHeight))
+        console.log(Math.floor(height / oneHeight))
 
     }, [debouncedHeight]);
 
@@ -152,36 +156,7 @@ const 힘든점 = props => {
                     <div className={"diff_writeButton"} onClick={()=>{writeDiff()}}>힘든 점 쓰기</div>
                 </div>
 
-                <div className={"diff_tagContainer"}>
-
-                    {props.tagList.length !== 0 &&
-                    props.tagList.map((tagName, index) => {
-                        return (
-                            <div className={"diff_tag"} tagIndex={index} onClick={() => props.setTag(index)}>
-                                <div className={"diff_sharp"}>#</div>
-                                <div className={"diff_tagName"}>{tagName}</div>
-                            </div>
-                        )
-                    })
-
-                    }
-
-
-                    {/*<div className={"diff_tag"} tagIndex={0} onClick={() => props.setTag(0)}>*/}
-                    {/*    <div className={"diff_sharp"}>#</div>*/}
-                    {/*    <div className={"diff_tagName"}>학생</div>*/}
-                    {/*</div>*/}
-                    {/*<div className={"diff_tag"} tagIndex={1} onClick={() => props.setTag(1)}>*/}
-                    {/*    <div className={"diff_sharp"}>#</div>*/}
-                    {/*    <div className={"diff_tagName"}>의료진</div>*/}
-                    {/*</div>*/}
-                    {/*<div className={"diff_tag"} tagIndex={2} onClick={() => props.setTag(2)}>*/}
-                    {/*    <div className={"diff_sharp"}>#</div>*/}
-                    {/*    <div className={"diff_tagName"}>학생</div>*/}
-                    {/*</div>*/}
-
-
-                </div>
+               <태그컨테이너 tag={props.tag} tagList={props.tagList} setTag={(e) => {props.setTag(e)}}/>
 
                 <div className={"diff_contentContainer"}>
                     <div className={"diff_contents"} id={"diff_contents"}>

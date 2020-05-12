@@ -16,7 +16,7 @@ const 힘든점쓰기 = props => {
         <div className={"wd_container"}>
             <div className={"wd_header"}>
                 <div className={"wd_title"}> 저는 </div>
-                <Dropdown controlClassName='wd_dropdown' options={tagOption} onChange={(o)=>{setSelectedTag(o.value)}} value={defaultOption}
+                <Dropdown controlClassName='wd_dropdown' options={tagOption} onChange={(o)=>{setSelectedTag(o.label)}} value={selectedTag}
                              placeholder="Select an option"/>
                 <div className={"wd_title"}> 입니다. </div>
             </div>

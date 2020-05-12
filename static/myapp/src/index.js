@@ -68,7 +68,7 @@ const Fullpage = () => {
     useEffect(() => {
         // 브라우저 API를 이용하여 문서 타이틀을 업데이트합니다.
         console.log(tag)
-        const tags = document.getElementsByClassName('diff_tag');
+        const tags = document.getElementsByClassName('tag_tag');
         console.log(tags)
         if (tags[tag] != undefined) {
             for (let i = 0; i < tags.length; i++) {
