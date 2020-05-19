@@ -15,39 +15,6 @@ const MySwal = withReactContent(Swal)
 import "../styles/힘든점.css";
 
 
-import useDebounce from "../lib/useDebounce";
-
-import {withRouter} from "react-router-dom";
-
-function useWindowSize() {
-    const isClient = typeof window === 'object';
-
-    function getSize() {
-        return {
-            width: isClient ? window.innerWidth : undefined,
-            height: isClient ? window.innerHeight : undefined
-        };
-    }
-
-    const [windowSize, setWindowSize] = useState(getSize);
-
-    useEffect(() => {
-        if (!isClient) {
-            return false;
-        }
-
-        function handleResize() {
-            setWindowSize(getSize());
-        }
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []); // Empty array ensures that effect is only run on mount and unmount
-
-    return windowSize;
-}
-
-
 let diff = {
     "startIndex": 0, "data": [
         {"title": "제목1", "content": "내용1"},
@@ -56,8 +23,6 @@ let diff = {
 const 힘든점 = props => {
 
 
-    const size = useWindowSize();
-    const debouncedHeight = useDebounce(size.height + size.width, 300);
     const [limit, setLimit] = useState(2);
 
     function prev() {
@@ -89,7 +54,8 @@ const 힘든점 = props => {
                 "content": "more_modalContent",
                 "actions": 'more_footer',
                 'confirmButton': 'more_exitButton',
-            }
+            },
+            "scrollbarPadding" : false
         })
 
     }
@@ -106,35 +72,40 @@ const 힘든점 = props => {
                 "actions": 'wd_footer',
                 'confirmButton': 'wd_exitButton',
             },
-            "showCancelButton" : true,
-            "reverseButtons" : true
+            "showCancelButton": true,
+            "reverseButtons": true,
+            "scrollbarPadding" : false
         })
 
     }
 
 
-
-
     console.log(props.diff)
     diff = props.diff
     useEffect(() => {
-        // 브라우저 API를 이용하여 문서 타이틀을 업데이트합니다.
-        const el = document.getElementById('diff_contents');
-        const el2 = document.getElementById('diff_contents').cloneNode(true);
-        el.style.display = "none";
-        el2.style.display = "flex";
-        document.getElementsByClassName("diff_contentContainer")[0].prepend(el2);
-        const height = document.getElementsByClassName('diff_contents')[0].getBoundingClientRect().height;
-        el.style.display = "flex";
-        document.getElementsByClassName("diff_contentContainer")[0].removeChild(el2);
-        //const height = document.getElementById('diff_contents').getBoundingClientRect().height;
+        try {
+            // 브라우저 API를 이용하여 문서 타이틀을 업데이트합니다.
+            const el = document.getElementById('diff_contents');
+            const el2 = document.getElementById('diff_contents').cloneNode(true);
+            el.style.display = "none";
+            el2.style.display = "flex";
+            document.getElementsByClassName("diff_contentContainer")[0].prepend(el2);
+            const height = document.getElementsByClassName('diff_contents')[0].getBoundingClientRect().height;
+            el.style.display = "flex";
+            document.getElementsByClassName("diff_contentContainer")[0].removeChild(el2);
+            //const height = document.getElementById('diff_contents').getBoundingClientRect().height;
 
-        const oneHeight = document.getElementsByClassName("diff_content")[0].getBoundingClientRect().height * 4 / 3;
+            const oneHeight = document.getElementsByClassName("diff_content")[0].getBoundingClientRect().height * 4 / 3;
 
-        setLimit(Math.floor(height / oneHeight))
-        console.log(Math.floor(height / oneHeight))
+            setLimit(Math.floor(height / oneHeight))
+            console.log(Math.floor(height / oneHeight))
+        }
+        catch (e){
 
-    }, [debouncedHeight]);
+        }
+
+
+    }, [props.debouncedSize]);
 
 
     return (
@@ -153,10 +124,15 @@ const 힘든점 = props => {
 
                 <div className={"diff_header"}>
                     <div className={"diff_title"}>이런 점이 힘들어요</div>
-                    <div className={"diff_writeButton"} onClick={()=>{writeDiff()}}>힘든 점 쓰기</div>
+                    <div className={"diff_writeButton"} onClick={() => {
+                        writeDiff()
+                    }}>힘든 점 쓰기
+                    </div>
                 </div>
 
-               <태그컨테이너 tag={props.tag} tagList={props.tagList} setTag={(e) => {props.setTag(e)}}/>
+                <태그컨테이너 tag={props.tag} tagList={props.tagList} setTag={(e) => {
+                    props.setTag(e)
+                }}/>
 
                 <div className={"diff_contentContainer"}>
                     <div className={"diff_contents"} id={"diff_contents"}>

@@ -1,70 +1,141 @@
-div.more_modalContainer {
-    width : 80%;
-    height : 80%;
-    display : flex;
+
+@media screen and (min-width: 769px) {
+    div.more_modalContainer {
+        width: 80%;
+        height: 80%;
+        display: flex;
+    }
+
+    div.more_container {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+    }
+
+    div.more_modalContent {
+        display: flex;
+        height: 90%;
+    }
+
+    div.more_footer {
+        height: 10%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .more_exitButton {
+        /*text-align : right;*/
+    }
+
+
+    div.more_modalContent div.swal2-html-container {
+        height: 100%;
+    }
+
+
+    div.more_title {
+        font-size: 2.5rem;
+        text-align: left;
+        margin-bottom: 1rem;
+        font-weight: bold;
+        display: flex;
+        flex-shrink: 0;
+    }
+
+    div.more_content {
+        font-size: 1.2rem;
+        text-align: left;
+        overflow-y: auto;
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .scroll::-webkit-scrollbar-track {
+
+
+        background-color: transparent;
+    }
+
+    .scroll::-webkit-scrollbar {
+        width: 6px;
+        background-color: transparent;
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #555;
+    }
 }
 
-div.more_container {
-    margin : 0 auto;
-    display : flex;
-    flex-direction: column;
-    height : 100%;
 
-}
+@media screen and (max-width: 769px) {
+    div.more_modalContainer {
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
 
-div.more_modalContent {
-    display : flex;
-    height : 90%;
-}
+    div.more_container {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
 
-div.more_footer {
-    height : 10%;
-    display: flex;
-    justify-content: flex-end;
-}
+    }
 
-.more_exitButton {
-    /*text-align : right;*/
-}
+    div.more_modalContent {
+        display: flex;
+        height: 90%;
+    }
 
+    div.more_footer {
+        height: 10%;
+        display: flex;
+        justify-content: flex-end;
+    }
 
-
-div.more_modalContent div.swal2-html-container {
-    height : 100%;
-}
-
-
-div.more_title {
-    font-size : 2.5rem;
-    text-align : left;
-    margin-bottom : 1rem;
-    font-weight : bold;
-    display : flex;
-    flex-shrink : 0 ;
-}
-div.more_content {
-    font-size : 1.2rem;
-    text-align : left;
-    overflow-y : auto;
-    display : flex;
-    flex-grow : 1;
-}
-
-.scroll::-webkit-scrollbar-track
-{
+    .more_exitButton {
+        /*text-align : right;*/
+    }
 
 
-	background-color: transparent;
-}
+    div.more_modalContent div.swal2-html-container {
+        height: 100%;
+    }
 
-.scroll::-webkit-scrollbar
-{
-	width: 6px;
-	background-color: transparent;
-}
 
-.scroll::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	background-color: #555;
+    div.more_title {
+        font-size: 1.5rem;
+        text-align: left;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        display: flex;
+        flex-shrink: 0;
+    }
+
+    div.more_content {
+        font-size: 1.2rem;
+        text-align: left;
+        overflow-y: auto;
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .scroll::-webkit-scrollbar-track {
+
+
+        background-color: transparent;
+    }
+
+    .scroll::-webkit-scrollbar {
+        width: 6px;
+        background-color: transparent;
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #555;
+    }
 }

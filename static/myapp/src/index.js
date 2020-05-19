@@ -14,7 +14,6 @@
 // serviceWorker.unregister();
 
 
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactFullpage from '@fullpage/react-fullpage';
@@ -32,6 +31,36 @@ import 힘든점 from "./components/힘든점"
 import 응원 from "./components/응원"
 
 
+import useDebounce from "./lib/useDebounce";
+
+
+function useWindowSize() {
+    const isClient = typeof window === 'object';
+
+    function getSize() {
+        return {
+            width: isClient ? window.innerWidth : undefined,
+            height: isClient ? window.innerHeight : undefined
+        };
+    }
+
+    const [windowSize, setWindowSize] = useState(getSize);
+
+    useEffect(() => {
+        if (!isClient) {
+            return false;
+        }
+
+        function handleResize() {
+            setWindowSize(getSize());
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []); // Empty array ensures that effect is only run on mount and unmount
+
+    return windowSize;
+}
 
 
 function animate(elements) {
@@ -53,7 +82,17 @@ function animate(elements) {
     }
 }
 
+// const pluginWrapper = () => {
+//     require('./lib/drag');
+// };
+
+
 const Fullpage = () => {
+
+
+    const size = useWindowSize();
+    const debouncedSize = useDebounce(size.height + size.width, 300);
+
 
     const [tag, setTag] = useState(0);
     const [diff, setDiff] = useState([]);
@@ -80,8 +119,10 @@ const Fullpage = () => {
             }
 
             let temp = [];
-            for (let i  = 0 ; i < 10 ; i ++){
-                temp.push({"title": `제목${i+1}`, "content": `${tagList[tag]}의 힘든 점${i+1}`.repeat(300)})
+            let temp2 = [];
+            for (let i = 0; i < 10; i++) {
+                temp.push({"title": `제목${i + 1}`, "content": `${tagList[tag]}의 힘든 점${i + 1}`.repeat(300)})
+                temp2.push({"content": `${tagList[tag]}에 대한 응원${i + 1}`.repeat(30)})
             }
 
             // setDiff({
@@ -99,7 +140,9 @@ const Fullpage = () => {
                 "startIndex": 0, "data": temp
             })
 
-            setCheer(10, 9, 8, 7, 6)
+            setCheer({
+                "startIndex": 0, "data": temp2
+            })
 
         }
 
@@ -119,6 +162,8 @@ const Fullpage = () => {
             </nav>
             <ReactFullpage
                 //fullpage options
+                // pluginWrapper={pluginWrapper}
+
                 licenseKey={'OPEN-SOURCE-GPLV3-LICENCE'}
                 scrollingSpeed={1000} /* Options here */
                 anchors={['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage']}
@@ -128,7 +173,7 @@ const Fullpage = () => {
                 dragAndMove={true}
                 slidesNavigation={true}
                 slidesNavPosition={'bottom'}
-                normalScrollElements = {'.more_content'}
+                normalScrollElements={'.more_content'}
                 onSlideLeave={(section, origin, destination, direction) => {
                     const counters = document.querySelectorAll(`.anime[class*="pos_${section.index}_${destination.index}"]`)
                     animate(counters)
@@ -170,6 +215,7 @@ const Fullpage = () => {
                                     <div className="section">
                                         <div className="slide " data-anchor="slide1" id={"힘든점"}>
                                             <힘든점
+                                                debouncedSize={debouncedSize}
                                                 setDiff={(t) => setDiff(t)}
                                                 setTag={(t) => setTag(t)}
                                                 tagList={tagList}
@@ -178,6 +224,8 @@ const Fullpage = () => {
                                         </div>
                                         <div className="slide  " data-anchor="slide2" id={"응원"}>
                                             <응원
+                                                debouncedSize={debouncedSize}
+                                                setCheer={(t) => setCheer(t)}
                                                 setTag={(t) => setTag(t)}
                                                 tagList={tagList}
                                                 tag={tag}
