@@ -15,8 +15,10 @@ const 개요2 = props => {
                 <div className={"outline_title"}>
                     하지만, 누군가에게는 힘든 나날이 되었을 것입니다.
                 </div>
-                <div className={"outline_infoContainer"}>
-
+                <div className={"outline_newsContainer"}>
+                    <img className={"outline_news"} src={require('../images/기사1.png')}/>
+                    <img className={"outline_news"} src={require('../images/기사2.png')}/>
+                    <img className={"outline_news"} src={require('../images/기사3.png')}/>
                 </div>
                 <div className={"outline_bottomText"}>
                     그래서, 우리 스스로를 응원해보고자 합니다.

@@ -55,7 +55,7 @@ const 힘든점 = props => {
                 "actions": 'more_footer',
                 'confirmButton': 'more_exitButton',
             },
-            "scrollbarPadding" : false
+            "scrollbarPadding": false
         })
 
     }
@@ -74,7 +74,7 @@ const 힘든점 = props => {
             },
             "showCancelButton": true,
             "reverseButtons": true,
-            "scrollbarPadding" : false
+            "scrollbarPadding": false
         })
 
     }
@@ -92,15 +92,25 @@ const 힘든점 = props => {
             document.getElementsByClassName("diff_contentContainer")[0].prepend(el2);
             const height = document.getElementsByClassName('diff_contents')[0].getBoundingClientRect().height;
             el.style.display = "flex";
-            document.getElementsByClassName("diff_contentContainer")[0].removeChild(el2);
+
+            let div = document.createElement('div');
+
+            let div2 = document.createElement('div');
+            div2.className = 'diff_content';
+            div2.id = 'diff_temp'
+            div.append(div2)
+            el2.prepend(div)
+
+
             //const height = document.getElementById('diff_contents').getBoundingClientRect().height;
 
-            const oneHeight = document.getElementsByClassName("diff_content")[0].getBoundingClientRect().height * 4 / 3;
+            const oneHeight = document.getElementById("diff_temp").getBoundingClientRect().height * 4 / 3;
+            document.getElementsByClassName("diff_contentContainer")[0].removeChild(el2);
+            // document.getElementsByClassName("diff_contents")[0].remove();
 
             setLimit(Math.floor(height / oneHeight))
             console.log(Math.floor(height / oneHeight))
-        }
-        catch (e){
+        } catch (e) {
 
         }
 

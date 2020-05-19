@@ -19,7 +19,7 @@ const 개요1 = props => {
                 <div className={"outline_infoContainer"}>
                     <div className={"outline_info"}>
                         <div className={"outline_icon"}>
-                            <img className={"outline_image"} src={require('../images/test.png')}/>
+                            <img className={"outline_image"} src={require('../images/검사.png')}/>
                         </div>
                         <div className={"outline_text"}>
                             <span className={"anime numCounter pos_1_0"} start={0} end={698574}>0</span>명 검사
@@ -27,7 +27,7 @@ const 개요1 = props => {
                     </div>
                     <div className={"outline_info"}>
                         <div className={"outline_icon"}>
-                            <img className={"outline_image"} src={require('../images/test.png')}/>
+                            <img className={"outline_image"} src={require('../images/확진.png')}/>
                         </div>
                         <div className={"outline_text"}>
                              <span className={"anime numCounter pos_1_0"} start={0} end={48321}>0</span>명 확진
@@ -35,7 +35,7 @@ const 개요1 = props => {
                     </div>
                     <div className={"outline_info"}>
                         <div className={"outline_icon"}>
-                            <img className={"outline_image"} src={require('../images/test.png')}/>
+                            <img className={"outline_image"} src={require('../images/완치.png')}/>
                         </div>
                         <div className={"outline_text"}>
                             <span className={"anime numCounter pos_1_0"} start={0} end={54654}>0</span>명 완치

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import ReactDOM from "react-dom";
 
 import 더보기 from "./modals/더보기";
@@ -68,7 +68,7 @@ const 응원 = props => {
                 "actions": 'more_footer',
                 'confirmButton': 'more_exitButton',
             },
-            "scrollbarPadding" : false
+            "scrollbarPadding": false
             // "customClass": {
             //     "popup": "more_modalContainer",
             //     "content": "more_modalContent",
@@ -95,7 +95,7 @@ const 응원 = props => {
             },
             "showCancelButton": true,
             "reverseButtons": true,
-            "scrollbarPadding" : false
+            "scrollbarPadding": false
         })
 
     }
@@ -103,7 +103,38 @@ const 응원 = props => {
 
     console.log(props.cheer)
     cheer = props.cheer
+
+    const mounted = useRef(false);
+
+    // useEffect(() => {
+    //
+    //     try {
+    //         // 브라우저 API를 이용하여 문서 타이틀을 업데이트합니다.
+    //         const el = document.getElementById('cheer_contents');
+    //         const el2 = document.getElementById('cheer_contents').cloneNode(true);
+    //         el.style.display = "none";
+    //         el2.style.display = "flex";
+    //         document.getElementsByClassName("cheer_contentContainer")[0].prepend(el2);
+    //         const height = document.getElementsByClassName('cheer_contents')[0].getBoundingClientRect().height;
+    //         const width = document.getElementsByClassName('cheer_contents')[0].getBoundingClientRect().width;
+    //         el.style.display = "flex";
+    //         document.getElementsByClassName("cheer_contentContainer")[0].removeChild(el2);
+    //         //const height = document.getElementById('cheer_contents').getBoundingClientRect().height;
+    //
+    //         let oneHeight = document.getElementById("cheer_temp").getBoundingClientRect().height * 7 / 6;
+    //         let oneWidth = document.getElementById("cheer_temp").getBoundingClientRect().width;
+    //         document.getElementById("cheer_temp").remove();
+    //
+    //
+    //         setLimit(Math.floor(height / oneHeight) * Math.floor(width / oneWidth));
+    //         if (!mounted.current) mounted.current = true;
+    //     } catch (e) {
+    //
+    //     }
+    // }, [/*변경되는값*/]);
+
     useEffect(() => {
+
         try {
             // 브라우저 API를 이용하여 문서 타이틀을 업데이트합니다.
             const el = document.getElementById('cheer_contents');
@@ -114,19 +145,58 @@ const 응원 = props => {
             const height = document.getElementsByClassName('cheer_contents')[0].getBoundingClientRect().height;
             const width = document.getElementsByClassName('cheer_contents')[0].getBoundingClientRect().width;
             el.style.display = "flex";
-            document.getElementsByClassName("cheer_contentContainer")[0].removeChild(el2);
+
+            let div = document.createElement('div');
+            div.className = 'cheer_content';
+            div.id = 'cheer_temp'
+            let div2 = document.createElement('div');
+            div2.className = 'cheer_contentText';
+            div.append(div2)
+            el2.prepend(div)
+
+            //document.getElementsByClassName("cheer_contentContainer")[0].removeChild(el2);
             //const height = document.getElementById('cheer_contents').getBoundingClientRect().height;
 
-            const oneHeight = document.getElementsByClassName("cheer_content")[0].getBoundingClientRect().height * 4 / 3;
-            const oneWidth = document.getElementsByClassName("cheer_content")[0].getBoundingClientRect().width;
+            let oneHeight = document.getElementById("cheer_temp").getBoundingClientRect().height * 7 / 6;
+            let oneWidth = document.getElementById("cheer_temp").getBoundingClientRect().width;
+
+            document.getElementsByClassName("cheer_contentContainer")[0].removeChild(el2);
+
 
             setLimit(Math.floor(height / oneHeight) * Math.floor(width / oneWidth));
-            console.log("heel", Math.floor(height / oneHeight) * Math.floor(width / oneWidth));
+            if (!mounted.current) mounted.current = true;
         } catch (e) {
 
         }
-
     }, [props.debouncedSize]);
+
+
+    // useEffect(() => {
+    //    try {
+    //             // 브라우저 API를 이용하여 문서 타이틀을 업데이트합니다.
+    //             const el = document.getElementById('cheer_contents');
+    //             const el2 = document.getElementById('cheer_contents').cloneNode(true);
+    //             el.style.display = "none";
+    //             el2.style.display = "flex";
+    //             document.getElementsByClassName("cheer_contentContainer")[0].prepend(el2);
+    //             const height = document.getElementsByClassName('cheer_contents')[0].getBoundingClientRect().height;
+    //             const width = document.getElementsByClassName('cheer_contents')[0].getBoundingClientRect().width;
+    //             el.style.display = "flex";
+    //             document.getElementsByClassName("cheer_contentContainer")[0].removeChild(el2);
+    //             //const height = document.getElementById('cheer_contents').getBoundingClientRect().height;
+    //
+    //             let oneHeight = document.getElementsByClassName("cheer_content")[0].getBoundingClientRect().height * 7 / 6;
+    //             let oneWidth = document.getElementsByClassName("cheer_content")[0].getBoundingClientRect().width;
+    //
+    //             setLimit(Math.floor(height / oneHeight) * Math.floor(width / oneWidth));
+    //
+    //         } catch (e) {
+    //             const height = document.getElementsByClassName('cheer_contents')[0].getBoundingClientRect().height;
+    //             const width = document.getElementsByClassName('cheer_contents')[0].getBoundingClientRect().width;
+    //
+    //         }
+    //
+    // }, [props.debouncedSize]);
 
 
     return (
@@ -157,7 +227,11 @@ const 응원 = props => {
 
                 <div className={"cheer_contentContainer"}>
                     <div className={"cheer_contents"} id={"cheer_contents"}>
+                        {/*<div className={"cheer_content"} id={"cheer_tem2"} style={{"display": "flex"}}>*/}
+                        {/*    <div className="cheer_contentText">*/}
 
+                        {/*    </div>*/}
+                        {/*</div>*/}
                         {cheer.data &&
                         cheer.data.slice(cheer.startIndex, cheer.startIndex + limit).map((cheer) => {
                             const colors = ["#85f07b", "#f9a5f5", "#a9f6f4", "#f1f29a", "#8aeec3"]
@@ -173,10 +247,10 @@ const 응원 = props => {
                                 }}
                                      style={{
                                          "background-color":
-                                             `${color}`
+                                             `${color}`, "transform": `rotate(${Math.floor(Math.random() * 11 - 5)}deg)`
                                      }}
                                 >
-
+                                    {/*,"transform" : `rotate(${Math.floor(Math.random() * 11 - 5)}deg)`*/}
                                     <div className={"cheer_contentText"} style={{
                                         "background-image":
                                             `-webkit-linear-gradient(left, white 0, transparent 0), -webkit-linear-gradient(right, white 0, transparent 0),
