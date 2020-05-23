@@ -13,6 +13,7 @@ from datetime import timedelta
 class _Cheer(Resource):
 
     def get(self):
+        print(request.environ['REMOTE_ADDR'])
         tagName = request.args.get("tagName", "")
         print(request.args)
         # tagName = "학생"
@@ -52,7 +53,7 @@ class _Cheer(Resource):
                         color=value["color"],
                         tagSeq=tag.seq,
                         date=datetime.now(),
-                        ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+                        ip=request.remote_addr
                         )
 
             db.session.add(row)
