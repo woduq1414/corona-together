@@ -10,6 +10,8 @@ if hostname[:7] == "DESKTOP":
 else:
     isLocal = False
 
+# isLocal = False
+
 if isLocal:
     config = configparser.ConfigParser()
     config.read('config.ini')
@@ -26,7 +28,7 @@ if isLocal:
 
     DEBUG = True
     PORT = 5000
-    HOST = "127.0.0.1"
+    HOST = "0.0.0.0"
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = config['DEFAULT']['SECRET_KEY']
@@ -38,11 +40,16 @@ else:
     pg_db_hostname = 'yeah'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', None)
 
+
     DEBUG = False
     PORT = 5000
     HOST = "127.0.0.1"
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = os.environ.get('SECRET_KEY', None)
+
+    # SQLALCHEMY_DATABASE_URI = ""
+    #
+    # SECRET_KEY = "SDAF"
 
 # PostgreSQL

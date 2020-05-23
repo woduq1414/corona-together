@@ -13,6 +13,11 @@
         height: 100%;
 
     }
+    div.more_modalContent .swal2-html-container{
+        width : 100%;
+    }
+
+
 
     div.more_modalContent {
         display: flex;
@@ -48,7 +53,7 @@
         font-size: 1.2rem;
         text-align: left;
         overflow-y: auto;
-        display: flex;
+        /*display: flex;*/
         flex-grow: 1;
     }
 
@@ -119,7 +124,7 @@
         font-size: 1.2rem;
         text-align: left;
         overflow-y: auto;
-        display: flex;
+        /*display: flex;*/
         flex-grow: 1;
     }
 

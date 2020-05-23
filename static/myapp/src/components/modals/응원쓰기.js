@@ -8,12 +8,14 @@ import TextareaAutosize from 'react-autosize-textarea';
 
 
 const 응원쓰기 = props => {
-    const [color, setColor] = useState("#f1f29a");
+
     const [tagOption, setTagOption] = useState(props.tagList);
     const [selectedTag, setSelectedTag] = useState(tagOption[0])
     //setTagOption(['1', '2', '3'])
     const defaultOption = tagOption[0];
     const colors = ["#85f07b", "#f9a5f5", "#a9f6f4", "#f1f29a", "#8aeec3"]
+    const [color, setColor] = useState(colors[props.colorIndex]);
+
 
     return (
         <div className={"wc_container"}>
@@ -39,7 +41,7 @@ const 응원쓰기 = props => {
                             id={"wc_contentArea"} className={"wc_contentArea scroll"}
                             rows={5}
                             maxRows={8}
-                            defaultValue={'예시'}
+                            defaultValue={''}
                             style={{
                                 "background-image":
                                     `-webkit-linear-gradient(left, white 0, transparent 0), -webkit-linear-gradient(right, white 0, transparent 0),
@@ -53,7 +55,10 @@ const 응원쓰기 = props => {
 
                         {colors.map((col) => {
                             return (
-                                <div className={`wc_color ${col == color ? "active" : ""}`} style={{"background-color": col}} onClick={()=>{setColor(col)}}>
+                                <div className={`wc_color ${col == color ? "active" : ""}`} color={col}
+                                     style={{"background-color": col}} onClick={() => {
+                                    setColor(col)
+                                }}>
 
                                 </div>
                             )
@@ -71,4 +76,4 @@ const 응원쓰기 = props => {
 
     );
 }
-            export default 응원쓰기;
+export default 응원쓰기;

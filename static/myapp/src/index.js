@@ -33,6 +33,12 @@ import 응원 from "./components/응원"
 
 import useDebounce from "./lib/useDebounce";
 
+import {ToastContainer, toast} from 'react-toastify';
+
+import {GetTag} from "./api/Tag"
+import {GetDifficult} from "./api/Difficult";
+import {GetCheer} from "./api/Cheer";
+
 
 function useWindowSize() {
     const isClient = typeof window === 'object';
@@ -97,15 +103,17 @@ const Fullpage = () => {
     const [tag, setTag] = useState(0);
     const [diff, setDiff] = useState([]);
     const [cheer, setCheer] = useState([]);
-    const [tagList, setTagList] = useState(undefined);
+    const [tagList, setTagList] = useState([""]);
+
+    const [tagLoaded, setTagLoaded] = useState(false);
 
 
-    if (tagList == undefined) {
-        setTagList(["학생", "의료진", "사람", "동물", "대통령", "고양이", "외국인", "강아지", "멍멍이", "볼리베어"])
-    }
 
-    useEffect(() => {
-        // 브라우저 API를 이용하여 문서 타이틀을 업데이트합니다.
+
+    async function GetTagHandler() {
+        let response = await GetTag()
+        setTagList(response.data);
+        let tagList = response.data;
         console.log(tag)
         const tags = document.getElementsByClassName('tag_tag');
         console.log(tags)
@@ -120,29 +128,123 @@ const Fullpage = () => {
 
             let temp = [];
             let temp2 = [];
-            for (let i = 0; i < 10; i++) {
-                temp.push({"title": `제목${i + 1}`, "content": `${tagList[tag]}의 힘든 점${i + 1}`.repeat(300)})
-                temp2.push({"content": `${tagList[tag]}에 대한 응원${i + 1}`.repeat(30)})
-            }
 
-            // setDiff({
-            //     "startIndex": 0, "data": [
-            //         {"title": "제목1", "content": "내용1"},
-            //         {"title": "제목2", "content": "내용2"},
-            //         {"title": "제목3", "content": "내용3"},
-            //         {"title": "제목4", "content": "내용4"},
-            //         {"title": "제목5", "content": "내용5"},
-            //         {"title": "제목6", "content": "내용6"}
-            //     ]
+
+
+
+
+
+
+            async function GetDifficultHandler() {
+                const res = await GetDifficult({"tagName" : tagList[tag]});
+                switch (res.status) {
+                    case 200:
+
+                         setDiff({
+                             "startIndex": 0, "data": res.data
+                         })
+                        break;
+                }
+            }
+            async function GetCheerHandler() {
+                const res = await GetCheer({"tagName" : tagList[tag]});
+                switch (res.status) {
+                    case 200:
+
+                         setCheer({
+                             "startIndex": 0, "data": res.data
+                         })
+                        break;
+                }
+            }
+            GetDifficultHandler();
+            GetCheerHandler();
+
+
+
+            //  setDiff({
+            //     "startIndex": 0, "data": temp
             // })
 
-            setDiff({
-                "startIndex": 0, "data": temp
-            })
 
-            setCheer({
-                "startIndex": 0, "data": temp2
-            })
+        }
+        setTagLoaded(true);
+
+    }
+
+    useEffect(() => {
+        GetTagHandler();
+
+
+    }, []);
+
+    useEffect(() => {
+        // 브라우저 API를 이용하여 문서 타이틀을 업데이트합니다.
+
+
+        if (tagLoaded == false) return;
+
+
+        console.log(tag)
+        const tags = document.getElementsByClassName('tag_tag');
+        console.log(tags)
+        if (tags[tag] != undefined) {
+            for (let i = 0; i < tags.length; i++) {
+                tags[i].classList.remove('active');
+            }
+            const targets = document.querySelectorAll(`[tagIndex="${tag}"]`)
+            for (let i = 0; i < targets.length; i++) {
+                targets[i].classList.add('active');
+            }
+
+            let temp = [];
+            let temp2 = [];
+            // for (let i = 0; i < 10; i++) {
+            //
+            //     temp2.push({"content": `${tagList[tag]}에 대한 응원${i + 1}`.repeat(30)})
+            // }
+            //
+            // // setDiff({
+            // //     "startIndex": 0, "data": [
+            // //         {"title": "제목1", "content": "내용1"},
+            // //         {"title": "제목2", "content": "내용2"},
+            // //         {"title": "제목3", "content": "내용3"},
+            // //         {"title": "제목4", "content": "내용4"},
+            // //         {"title": "제목5", "content": "내용5"},
+            // //         {"title": "제목6", "content": "내용6"}
+            // //     ]
+            // // })
+            //
+            //
+            // setCheer({
+            //     "startIndex": 0, "data": temp2
+            // })
+
+            async function GetDifficultHandler() {
+                const res = await GetDifficult({"tagName" : tagList[tag]});
+                switch (res.status) {
+                    case 200:
+
+                         setDiff({
+                             "startIndex": 0, "data": res.data
+                         })
+                        break;
+                }
+            }
+            async function GetCheerHandler() {
+                const res = await GetCheer({"tagName" : tagList[tag]});
+                switch (res.status) {
+                    case 200:
+
+                         setCheer({
+                             "startIndex": 0, "data": res.data
+                         })
+                        break;
+                }
+            }
+            GetDifficultHandler();
+            GetCheerHandler();
+
 
         }
 
@@ -193,6 +295,10 @@ const Fullpage = () => {
                 render={({state, fullpageApi}) => {
                     return (
                         <React.Fragment>
+                            <div className={"full"}>
+
+                            </div>
+
 
                             <div className={"side"}>
 
@@ -220,7 +326,10 @@ const Fullpage = () => {
                                                 setTag={(t) => setTag(t)}
                                                 tagList={tagList}
                                                 tag={tag}
-                                                diff={diff}/>
+                                                diff={diff}
+
+                                            />
+                                            <ToastContainer/>
                                         </div>
                                         <div className="slide  " data-anchor="slide2" id={"응원"}>
                                             <응원

@@ -1,8 +1,8 @@
 import {getCookie, API} from './api'
 
-export const getToken = params => {
+export const WriteCheer = value => {
     console.log("SDFFFFFFFFFFFFFFFFFFF")
-    return API.post(`/auth?id=${params.id}&password=${params.password}`)
+    return API.post(`/cheer`, value)
         .then((response) => {
 
             return response;
@@ -28,12 +28,9 @@ export const getToken = params => {
 
 };
 
-export const GetMyIdentity = () => {
-    let accessToken = getCookie("access_token")
-    const config = {
-        headers: {Authorization: `Bearer ${accessToken}`}
-    };
-    return API.get(`/auth`, config)
+export const GetCheer = value => {
+
+    return API.get(`/cheer?tagName=${value.tagName}`)
         .then((response) => {
 
             return response;

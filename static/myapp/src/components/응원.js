@@ -7,12 +7,14 @@ import 태그컨테이너 from "./태그컨테이너";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-
+import {WriteCheer} from "../api/Cheer";
 
 const MySwal = withReactContent(Swal)
 
 
 import "../styles/응원.css";
+import {toast, ToastContainer} from "react-toastify";
+import {WriteDifficult} from "../api/Difficult";
 
 
 let cheer = {
@@ -20,26 +22,56 @@ let cheer = {
         {"title": "제목1", "content": "내용1"},
     ]
 };
+
+
 const 응원 = props => {
 
 
     const [limit, setLimit] = useState(2);
 
+    const [toastFlag, setToastFlag] = useState({"f": 0, "message": ""});
+
+    useEffect(() => {
+
+        if (toastFlag.f == 0) return;
+
+        toast.warning(toastFlag.message,
+            {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined
+            }
+        );
+        setToastFlag({"f": 0, "message": ""})
+
+    }, [toastFlag.f]);
+
+
     function prev() {
         let startIndex = cheer.startIndex;
-        startIndex -= limit;
-        if (startIndex < 0) {
-            startIndex = 0;
+
+        if (startIndex - limit < 0) {
+            //startIndex = 0;
+            setToastFlag({"f": 1, "message": "첫 페이지입니다."})
+        } else {
+            startIndex -= limit;
         }
         props.setCheer({"startIndex": startIndex, "data": [...cheer.data]})
     }
 
     function next() {
         let startIndex = cheer.startIndex;
-        startIndex += limit;
-        if (startIndex >= cheer.data.length) {
-            startIndex = 0;
+
+        if (startIndex + limit >= cheer.data.length) {
+            setToastFlag({"f": 1, "message": "마지막 페이지입니다."})
+        } else {
+            startIndex += limit;
         }
+
         props.setCheer({"startIndex": startIndex, "data": [...cheer.data]})
     }
 
@@ -62,6 +94,7 @@ const 응원 = props => {
 
 
             ),
+
             "customClass": {
                 "popup": "mc_content",
                 "content": "more_modalContent",
@@ -85,12 +118,84 @@ const 응원 = props => {
 
         MySwal.fire({
             "html": (
-                <응원쓰기 tagList={props.tagList}/>
+                <응원쓰기 tagList={props.tagList} colorIndex={Math.floor(Math.random() * 5)}/>
+            ),
+            "footer": (
+                <React.Fragment>
+                    <ToastContainer/>
+                    <div className={"wc_confirmButton"} onClick={() => {
+
+                        const value = {
+                            "tagName": document.querySelector('.wc_dropdown .is-selected').innerText,
+                            "content": document.getElementById("wc_contentArea").value,
+                            "color": document.querySelector('.wc_color.active').getAttribute('color')
+                        }
+
+
+                        async function WriteCheerHandler() {
+                            const res = await WriteCheer(value);
+
+                            switch (res.status) {
+                                case 201:
+                                    if (value.tagName === props.tagList[props.tag]) {
+                                        props.setCheer({
+                                            "startIndex": cheer.startIndex,
+                                            "data": [value].concat(cheer.data)
+                                        })
+                                    }
+
+                                    MySwal.fire({
+                                        title: "정상적으로 등록되었습니다!",
+                                        icon: 'success',
+                                        "scrollbarPadding": false,
+                                        "showConfirmButton": false
+                                    });
+
+
+                                    setTimeout(function () {
+                                        MySwal.close()
+
+                                    }, 2000);
+
+
+                                    break;
+                                case 400:
+                                    console.log(res.data.error)
+                                    toast.error(
+                                        <div>
+                                            {res.data.error.map((error) => {
+                                                return <p>{error}</p>
+                                            })
+                                            }
+                                        </div>
+
+                                        , {
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                        });
+                                    break;
+                            }
+
+                            //alert(res.data)
+                        }
+
+                        WriteCheerHandler()
+                    }
+                    }>확인
+                    </div>
+                </React.Fragment>
+
             ),
             "customClass": {
                 "popup": "wc_modalContainer",
                 "content": "wc_modalContent",
-                "actions": 'wc_footer',
+                "actions": 'wc_action',
+                "footer": "wc_footer",
                 'confirmButton': 'wc_exitButton',
             },
             "showCancelButton": true,
@@ -236,10 +341,8 @@ const 응원 = props => {
                         cheer.data.slice(cheer.startIndex, cheer.startIndex + limit).map((cheer) => {
                             const colors = ["#85f07b", "#f9a5f5", "#a9f6f4", "#f1f29a", "#8aeec3"]
 
-                            const color = colors[Math.floor(Math.random() * colors.length)];
+                            const color = cheer.color
 
-
-                            cheer.color = color;
                             return (
 
                                 <div className={"cheer_content"} onClick={() => {

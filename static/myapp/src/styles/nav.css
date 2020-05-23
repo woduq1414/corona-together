@@ -29,6 +29,18 @@ html {
     text-align: center;
 }
 
+/*.full {*/
+/*    display : none;*/
+/*    width : 100%;*/
+/*    height : 100%;*/
+/*    background-color : rgba(125,125,125,0.5);*/
+/*    z-index : 1061;*/
+/*    position: fixed;*/
+/*    top: 0 ;*/
+/*    left : 0;*/
+/*}*/
+
+
 @media screen and (min-width: 769px) {
 
     /* 데스크탑에서 사용될 스타일을 여기에 작성합니다. */

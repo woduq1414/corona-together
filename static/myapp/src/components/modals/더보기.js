@@ -11,7 +11,11 @@ const 더보기 = props => {
                 {diff.title}
             </div>
             <div className={"more_content scroll"}>
-                {diff.content}
+                {
+                    diff.content.split('\n').map(line => {
+                        return (<span>{line}<br/></span>)
+                    })
+                }
             </div>
         </div>
 

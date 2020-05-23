@@ -8,15 +8,15 @@ import 'react-dropdown/style.css';
 const 힘든점쓰기 = props => {
 
     const [tagOption, setTagOption] = useState(props.tagList);
-    const [selectedTag, setSelectedTag] = useState(tagOption[0])
+    const [selectedTag, setSelectedTag] = useState(tagOption[props.tag])
     //setTagOption(['1', '2', '3'])
-    const defaultOption = tagOption[0];
+    const defaultOption = tagOption[props.tag];
 
     return (
         <div className={"wd_container"}>
             <div className={"wd_header"}>
                 <div className={"wd_title"}> 저는 </div>
-                <Dropdown controlClassName='wd_dropdown' options={tagOption} onChange={(o)=>{setSelectedTag(o.label)}} value={selectedTag}
+                <Dropdown  controlClassName='wd_dropdown' options={tagOption} onChange={(o)=>{setSelectedTag(o.label)}} value={selectedTag}
                              placeholder="Select an option"/>
                 <div className={"wd_title"}> 입니다. </div>
             </div>

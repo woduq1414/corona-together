@@ -14,32 +14,77 @@ const MySwal = withReactContent(Swal)
 
 import "../styles/힘든점.css";
 
+import {WriteDifficult} from "../api/Difficult"
+
+
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 let diff = {
     "startIndex": 0, "data": [
         {"title": "제목1", "content": "내용1"},
     ]
 };
+
+toast.configure({
+    position: "top-left",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+})
+
 const 힘든점 = props => {
+
+
+    const [toastFlag, setToastFlag] = useState({"f": 0, "message": ""});
+
+    useEffect(() => {
+
+        if (toastFlag.f == 0) return;
+
+
+        toast.warning(toastFlag.message, {
+                position: "top-left",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined
+            }
+        );
+        setToastFlag({"f": 0, "message": ""})
+
+    }, [toastFlag.f]);
 
 
     const [limit, setLimit] = useState(2);
 
     function prev() {
         let startIndex = diff.startIndex;
-        startIndex -= limit;
-        if (startIndex < 0) {
-            startIndex = 0;
+
+        if (startIndex - limit < 0) {
+            //startIndex = 0;
+            setToastFlag({"f": 1, "message": "첫 페이지입니다."})
+        } else {
+            startIndex -= limit;
         }
         props.setDiff({"startIndex": startIndex, "data": [...diff.data]})
     }
 
     function next() {
         let startIndex = diff.startIndex;
-        startIndex += limit;
-        if (startIndex >= diff.data.length) {
-            startIndex = 0;
+
+        if (startIndex + limit >= diff.data.length) {
+            setToastFlag({"f": 1, "message": "마지막 페이지입니다."})
+        } else {
+            startIndex += limit;
         }
+
         props.setDiff({"startIndex": startIndex, "data": [...diff.data]})
     }
 
@@ -64,17 +109,98 @@ const 힘든점 = props => {
 
         MySwal.fire({
             "html": (
-                <힘든점쓰기 tagList={props.tagList}/>
+                <React.Fragment>
+                    <힘든점쓰기 tagList={props.tagList} tag={props.tag}/>
+                </React.Fragment>
+
+
+            ),
+            "footer": (
+                <React.Fragment>
+                    <ToastContainer/>
+                    <div className={"wd_confirmButton"} onClick={() => {
+
+                        const value = {
+                            "tagName": document.querySelector('.wd_dropdown .is-selected').innerText,
+                            "title": document.getElementById("wd_titleArea").value,
+                            "content": document.getElementById("wd_contentArea").value
+                        }
+
+
+                        async function WriteDifficultHandler() {
+                            const res = await WriteDifficult(value);
+
+                            switch (res.status) {
+                                case 201:
+                                    if (value.tagName === props.tagList[props.tag]) {
+                                        props.setDiff({
+                                            "startIndex": diff.startIndex,
+                                            "data": [value].concat(diff.data)
+                                        })
+                                    }
+
+                                    MySwal.fire({
+                                        title: "정상적으로 등록되었습니다!",
+                                        icon: 'success',
+                                        "scrollbarPadding": false,
+                                        "showConfirmButton": false
+                                    });
+
+
+                                    setTimeout(function () {
+                                        MySwal.close()
+
+                                    }, 2000);
+
+
+                                    break;
+                                case 400:
+                                    console.log(res.data.error)
+                                    toast.error(
+                                        <div>
+                                            {res.data.error.map((error) => {
+                                                return <p>{error}</p>
+                                            })
+                                            }
+                                        </div>
+
+                                        , {
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                        });
+                                    break;
+                            }
+
+                            //alert(res.data)
+                        }
+
+                        WriteDifficultHandler()
+                    }
+                    }>확인
+                    </div>
+                </React.Fragment>
+
             ),
             "customClass": {
                 "popup": "wd_modalContainer",
                 "content": "wd_modalContent",
-                "actions": 'wd_footer',
+                "actions": 'wd_action',
                 'confirmButton': 'wd_exitButton',
+                "footer": "wd_footer"
             },
             "showCancelButton": true,
             "reverseButtons": true,
-            "scrollbarPadding": false
+            "scrollbarPadding": false,
+            onOpen: () => {
+                // `MySwal` is a subclass of `Swal`
+                //   with all the same instance & static methods
+            },
+
         })
 
     }
