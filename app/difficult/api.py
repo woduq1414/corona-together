@@ -54,7 +54,7 @@ class _Difficult(Resource):
                             content=value["content"],
                             tagSeq=tag.seq,
                             date=datetime.now(),
-                            ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+                            ip=request.headers['X-Forwarded-For']
                             )
 
             db.session.add(row)

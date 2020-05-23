@@ -53,7 +53,7 @@ class _Cheer(Resource):
                         color=value["color"],
                         tagSeq=tag.seq,
                         date=datetime.now(),
-                        ip=request.remote_addr
+                        ip=request.headers['X-Forwarded-For']
                         )
 
             db.session.add(row)
