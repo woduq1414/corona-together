@@ -1,4 +1,40 @@
 
+.more_action {
+    display: none !important;
+}
+
+.more_footer {
+    margin : 0 !important;;
+    padding : 0 !important;
+    border: 0 !important;
+    align-items: center;
+}
+
+.more_confirmButton {
+    vertical-align: middle;
+    line-height: 3rem;
+    height: 3rem;
+    box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+    border-radius: 1rem;
+    cursor: pointer;
+    padding: 0 1rem;
+    width: 20%;
+    text-align: center;
+}
+
+.more_deleteButton {
+    vertical-align: middle;
+    line-height: 3rem;
+    height: 3rem;
+    box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .15);
+    border-radius: 1rem;
+    cursor: pointer;
+    padding: 0 1rem;
+    width: 20%;
+    text-align: center;
+}
+
+
 @media screen and (min-width: 769px) {
     div.more_modalContainer {
         width: 80%;
@@ -13,10 +49,10 @@
         height: 100%;
 
     }
-    div.more_modalContent .swal2-html-container{
-        width : 100%;
-    }
 
+    div.more_modalContent .swal2-html-container {
+        width: 100%;
+    }
 
 
     div.more_modalContent {
@@ -27,7 +63,7 @@
     div.more_footer {
         height: 10%;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
     }
 
     .more_exitButton {
@@ -93,12 +129,17 @@
     div.more_modalContent {
         display: flex;
         height: 90%;
+
+    }
+
+    div.more_modalContent .swal2-html-container {
+        width: 100%;
     }
 
     div.more_footer {
         height: 10%;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
     }
 
     .more_exitButton {
@@ -142,5 +183,10 @@
     .scroll::-webkit-scrollbar-thumb {
         border-radius: 10px;
         background-color: #555;
+    }
+
+
+    .more_action {
+        display: none;
     }
 }

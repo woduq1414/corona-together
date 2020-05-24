@@ -22,6 +22,7 @@ let cheer = {
         {"title": "제목1", "content": "내용1"},
     ]
 };
+toast.configure({})
 
 
 const 응원 = props => {
@@ -37,8 +38,9 @@ const 응원 = props => {
 
         toast.warning(toastFlag.message,
             {
+                containerId: 'A',
                 position: "top-right",
-                autoClose: 2000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -122,7 +124,7 @@ const 응원 = props => {
             ),
             "footer": (
                 <React.Fragment>
-                    <ToastContainer/>
+                    {/*<ToastContainer/>*/}
                     <div className={"wc_confirmButton"} onClick={() => {
 
                         const value = {
@@ -133,6 +135,7 @@ const 응원 = props => {
 
 
                         async function WriteCheerHandler() {
+
                             const res = await WriteCheer(value);
 
                             switch (res.status) {
@@ -309,6 +312,7 @@ const 응원 = props => {
 
 
             <div className={"cheer_container"}>
+
                 {/*<button onClick={toggleModal}>Show Modal</button>*/}
                 {/*<CustomModal*/}
                 {/*    title="Item Modal"*/}

@@ -10,15 +10,17 @@ import withReactContent from 'sweetalert2-react-content'
 
 
 const MySwal = withReactContent(Swal)
-
+const MySwal2 = withReactContent(Swal)
+const MySwal3 = withReactContent(Swal)
 
 import "../styles/힘든점.css";
 
-import {WriteDifficult} from "../api/Difficult"
+import {GetDifficult, WriteDifficult, DeleteDifficult} from "../api/Difficult"
 
 
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {GetCheer} from "../api/Cheer";
 
 
 let diff = {
@@ -27,18 +29,21 @@ let diff = {
     ]
 };
 
-toast.configure({
-    position: "top-left",
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined
-})
+//toast.configure({})
 
 const 힘든점 = props => {
 
+    async function GetDifficultHandler() {
+        const res = await GetDifficult({"tagName": props.tagList[props.tag]});
+        //console.error(res.data)
+        switch (res.status) {
+            case 200:
+                props.setDiff({
+                    "startIndex": 0, "data": res.data
+                })
+                break;
+        }
+    }
 
     const [toastFlag, setToastFlag] = useState({"f": 0, "message": ""});
 
@@ -48,8 +53,8 @@ const 힘든점 = props => {
 
 
         toast.warning(toastFlag.message, {
-                position: "top-left",
-                autoClose: 2000,
+                position: "top-right",
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -94,10 +99,114 @@ const 힘든점 = props => {
             "html": (
                 <더보기 diff={diff}/>
             ),
+            "footer": (
+                <React.Fragment>
+                    <div className={"more_deleteButton"}
+                         onClick={() => {
+                             MySwal.fire({
+                                 title: "비밀번호를 입력해주세요.",
+                                 input: "text",
+                                 footer:
+                                     <React.Fragment>
+                                         <div className={"pass_confirmButton"} onClick={() => {
+                                             const password = document.getElementsByClassName("pass_input")[0].value
+                                             if (password.trim() == "") {
+                                                 toast.error(
+                                                     "비밀번호를 입력해주세요."
+                                                     , {
+                                                         position: "top-right",
+                                                         autoClose: 5000,
+                                                         hideProgressBar: false,
+                                                         closeOnClick: true,
+                                                         pauseOnHover: true,
+                                                         draggable: true,
+                                                         progress: undefined,
+                                                     });
+
+
+                                             } else {
+                                                 async function DeleteDifficultHandler(value) {
+
+                                                     const res = await DeleteDifficult(value);
+
+                                                     switch (res.status) {
+                                                         case 200:
+
+
+                                                             GetDifficultHandler();
+
+                                                             MySwal.close()
+                                                             MySwal3.fire({
+                                                                 title: "성공적으로 삭제되었습니다!",
+                                                                 icon: 'success',
+                                                                 "scrollbarPadding": false,
+                                                                 "showConfirmButton": false
+                                                             });
+
+
+
+
+
+                                                             break;
+                                                         case 403:
+                                                         case 404:
+                                                             console.log(res.data.error)
+                                                             toast.error(
+                                                                 res.data.error
+
+                                                                 , {
+                                                                     position: "top-right",
+                                                                     autoClose: 3000,
+                                                                     hideProgressBar: false,
+                                                                     closeOnClick: true,
+                                                                     pauseOnHover: true,
+                                                                     draggable: true,
+                                                                     progress: undefined,
+                                                                 });
+                                                             break;
+                                                     }
+
+                                                     //alert(res.data)
+                                                 }
+
+                                                 let value = {};
+                                                 value.password = password;
+                                                 value.seq = diff.seq;
+                                                 console.log(value)
+                                                 DeleteDifficultHandler(value)
+
+
+                                             }
+                                         }}>확인
+                                         </div>
+
+                                     </React.Fragment>
+                                 , "scrollbarPadding":
+                                     false,
+                                 "customClass": {
+                                     "popup": "pass_modalContainer",
+                                     "content": "pass_modalContent",
+                                     "actions": 'pass_action',
+                                     'confirmButton': 'pass_exitButton',
+                                     "footer": "pass_footer",
+                                     "input": "pass_input"
+                                 },
+                                 "allowEnterKey" : false
+                             })
+                         }}>삭제
+                    </div>
+                    <div className={"more_confirmButton"}
+                         onClick={() => {
+                             MySwal.close()
+                         }}>닫기
+                    </div>
+                </React.Fragment>
+            ),
             "customClass": {
                 "popup": "more_modalContainer",
                 "content": "more_modalContent",
-                "actions": 'more_footer',
+                "actions": 'more_action',
+                "footer": "more_footer",
                 'confirmButton': 'more_exitButton',
             },
             "scrollbarPadding": false
@@ -117,70 +226,150 @@ const 힘든점 = props => {
             ),
             "footer": (
                 <React.Fragment>
-                    <ToastContainer/>
+                    {/*<ToastContainer/>*/}
                     <div className={"wd_confirmButton"} onClick={() => {
+
 
                         const value = {
                             "tagName": document.querySelector('.wd_dropdown .is-selected').innerText,
                             "title": document.getElementById("wd_titleArea").value,
                             "content": document.getElementById("wd_contentArea").value
                         }
-
-
-                        async function WriteDifficultHandler() {
-                            const res = await WriteDifficult(value);
-
-                            switch (res.status) {
-                                case 201:
-                                    if (value.tagName === props.tagList[props.tag]) {
-                                        props.setDiff({
-                                            "startIndex": diff.startIndex,
-                                            "data": [value].concat(diff.data)
-                                        })
+                        let errors = [];
+                        if (value.title.trim() == "") {
+                            errors.push("제목이 비어있습니다.")
+                        }
+                        if (value.title.length > 100) {
+                            errors.push("제목은 100자까지 가능합니다.")
+                        }
+                        if (value.content.trim() == "") {
+                            errors.push("내용이 비어있습니다.")
+                        }
+                        if (value.content.length > 2000) {
+                            errors.push("내용은 2000자까지 가능합니다.")
+                        }
+                        console.log("SAFD", errors, value)
+                        if (errors.length > 0) {
+                            toast.error(
+                                <div>
+                                    {errors.map((error) => {
+                                        return <p>{error}</p>
+                                    })
                                     }
+                                </div>
 
-                                    MySwal.fire({
-                                        title: "정상적으로 등록되었습니다!",
-                                        icon: 'success',
-                                        "scrollbarPadding": false,
-                                        "showConfirmButton": false
-                                    });
+                                , {
+                                    position: "top-right",
+                                    autoClose: 3000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                });
+
+                        } else {
+
+                            async function WriteDifficultHandler(value) {
+                                MySwal.close()
+                                const res = await WriteDifficult(value);
+
+                                switch (res.status) {
+                                    case 201:
+                                        if (value.tagName === props.tagList[props.tag]) {
 
 
-                                    setTimeout(function () {
+                                            GetDifficultHandler();
+                                        }
                                         MySwal.close()
-
-                                    }, 2000);
-
-
-                                    break;
-                                case 400:
-                                    console.log(res.data.error)
-                                    toast.error(
-                                        <div>
-                                            {res.data.error.map((error) => {
-                                                return <p>{error}</p>
-                                            })
-                                            }
-                                        </div>
-
-                                        , {
-                                            position: "top-right",
-                                            autoClose: 5000,
-                                            hideProgressBar: false,
-                                            closeOnClick: true,
-                                            pauseOnHover: true,
-                                            draggable: true,
-                                            progress: undefined,
+                                        MySwal3.fire({
+                                            title: "정상적으로 등록되었습니다!",
+                                            icon: 'success',
+                                            "scrollbarPadding": false,
+                                            "showConfirmButton": false
                                         });
-                                    break;
+
+
+
+
+
+                                        break;
+                                    case 400:
+                                        console.log(res.data.error)
+                                        toast.error(
+                                            <div>
+                                                {res.data.error.map((error) => {
+                                                    return <p>{error}</p>
+                                                })
+                                                }
+                                            </div>
+
+                                            , {
+                                                position: "top-right",
+                                                autoClose: 3000,
+                                                hideProgressBar: false,
+                                                closeOnClick: true,
+                                                pauseOnHover: true,
+                                                draggable: true,
+                                                progress: undefined,
+                                            });
+                                        break;
+                                }
+
+                                //alert(res.data)
                             }
 
-                            //alert(res.data)
+                            MySwal.close()
+                            MySwal.fire({
+                                title: "비밀번호를 설정하실래요?",
+                                text: "비밀번호를 설정하면 추후 글을 삭제할 때 사용할 수 있어요.",
+                                input: "text",
+                                footer: <React.Fragment>
+                                    <div className={"pass_confirmButton"} onClick={() => {
+                                        const password = document.getElementsByClassName("pass_input")[0].value
+                                        if (password.trim() == "") {
+                                            toast.error(
+                                                "비밀번호를 입력해주세요."
+                                                , {
+                                                    position: "top-right",
+                                                    autoClose: 3000,
+                                                    hideProgressBar: false,
+                                                    closeOnClick: true,
+                                                    pauseOnHover: true,
+                                                    draggable: true,
+                                                    progress: undefined,
+                                                });
+
+
+                                        } else {
+                                            value.password = password
+                                            WriteDifficultHandler(value)
+                                        }
+                                    }}>네
+                                    </div>
+                                    <div className={"pass_confirmButton"} onClick={() => {
+                                        WriteDifficultHandler(value)
+                                    }}>아니요
+                                    </div>
+                                </React.Fragment>
+                                , "scrollbarPadding":
+                                    false,
+                                "customClass": {
+                                    "popup": "pass_modalContainer",
+                                    "content": "pass_modalContent",
+                                    "actions": 'pass_action',
+                                    'confirmButton': 'pass_exitButton',
+                                    "footer": "pass_footer",
+                                    "input": "pass_input"
+                                },
+                                "allowEnterKey" : false
+                            })
+
                         }
 
-                        WriteDifficultHandler()
                     }
+
+
                     }>확인
                     </div>
                 </React.Fragment>

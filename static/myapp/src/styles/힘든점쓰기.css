@@ -143,9 +143,11 @@
 
 @media screen and (max-width: 769px) {
     div.wd_modalContainer {
-        width: 90%;
+        width: 95%;
         height: 90%;
         display: flex;
+
+        padding : 20px 0;
     }
 
     div.wd_container {

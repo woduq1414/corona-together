@@ -55,3 +55,32 @@ export const GetDifficult = value => {
     ;
 
 };
+
+
+export const DeleteDifficult = value => {
+
+    return API.post(`/difficult/delete`, value)
+        .then((response) => {
+
+            return response;
+        })
+        .catch((error) => {
+            // Error 😨
+            if (error.response) {
+
+                return error.response
+
+
+            } else if (error.request) {
+
+                console.log("request", error.request);
+
+                return "timeout"
+            } else {
+
+                console.log('Error', error.message);
+            }
+        });
+    ;
+
+};

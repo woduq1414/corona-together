@@ -49,7 +49,6 @@ else:
     SECRET_KEY = os.environ.get('SECRET_KEY', None)
 
     # SQLALCHEMY_DATABASE_URI = ""
-    #
     # SECRET_KEY = "SDAF"
 
 # PostgreSQL

@@ -1,6 +1,7 @@
 from flask import Flask, Response
 from flask_cors import CORS
-
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 class MyResponse(Response):
     default_mimetype = 'application/xml'
@@ -21,6 +22,10 @@ def create_app(config_filename):
     from app.difficult.views import difficult_bp
     from app.cheer.views import cheer_bp
     from app.tag.views import tag_bp
+
+    # limiter = Limiter(app, default_limits=["2/second"], key_func=get_remote_address)
+    # limiter.limit("1/second")(difficult_bp)
+
 
     app.register_blueprint(difficult_bp, url_prefix='/api/difficult')
     app.register_blueprint(cheer_bp, url_prefix='/api/cheer')

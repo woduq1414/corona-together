@@ -6,6 +6,9 @@ from flask import render_template
 # app.app_context().push()
 
 from app.db import db
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 app = create_app('config')
 # db.create_all(app=app)
 
@@ -27,6 +30,11 @@ def not_found(error):
 
 
     return render_template('index.html')
+
+
+# @app.route('/api/difficult', methods=['POST'])
+
+
 
 if __name__ == '__main__':
     app.run(host=app.config['HOST'],

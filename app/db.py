@@ -27,7 +27,7 @@ class Difficult(db.Model):
     content = db.Column(db.String(2000), nullable=False)
     ip = db.Column(db.String(20), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-
+    password = db.Column(db.String(20), nullable=True)
     tag = relationship("Tag", backref=backref('difficult', order_by=seq))
 
 
@@ -40,7 +40,7 @@ class Cheer(db.Model):
     content = db.Column(db.String(2000), nullable=False)
     ip = db.Column(db.String(20), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-
+    password = db.Column(db.String(20), nullable=True)
     tag = relationship("Tag", backref=backref('cheer', order_by=seq))
 
 

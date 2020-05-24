@@ -329,7 +329,7 @@ const Fullpage = () => {
                                                 diff={diff}
 
                                             />
-                                            <ToastContainer/>
+
                                         </div>
                                         <div className="slide  " data-anchor="slide2" id={"응원"}>
                                             <응원
