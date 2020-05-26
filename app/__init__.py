@@ -22,7 +22,7 @@ def create_app(config_filename):
     from app.difficult.views import difficult_bp
     from app.cheer.views import cheer_bp
     from app.tag.views import tag_bp
-
+    from app.data.views import data_bp
     # limiter = Limiter(app, default_limits=["2/second"], key_func=get_remote_address)
     # limiter.limit("1/second")(difficult_bp)
 
@@ -30,6 +30,6 @@ def create_app(config_filename):
     app.register_blueprint(difficult_bp, url_prefix='/api/difficult')
     app.register_blueprint(cheer_bp, url_prefix='/api/cheer')
     app.register_blueprint(tag_bp, url_prefix='/api/tag')
-
+    app.register_blueprint(data_bp, url_prefix='/api/data')
     CORS(app)
     return app

@@ -55,3 +55,31 @@ export const GetCheer = value => {
     ;
 
 };
+
+export const DeleteCheer = value => {
+
+    return API.post(`/cheer/delete`, value)
+        .then((response) => {
+
+            return response;
+        })
+        .catch((error) => {
+            // Error 😨
+            if (error.response) {
+
+                return error.response
+
+
+            } else if (error.request) {
+
+                console.log("request", error.request);
+
+                return "timeout"
+            } else {
+
+                console.log('Error', error.message);
+            }
+        });
+    ;
+
+};

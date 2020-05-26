@@ -13,7 +13,6 @@ from datetime import timedelta
 class _Cheer(Resource):
 
     def get(self):
-        print(request.environ['REMOTE_ADDR'])
         tagName = request.args.get("tagName", "")
         print(request.args)
         # tagName = "학생"
@@ -25,8 +24,10 @@ class _Cheer(Resource):
         cheer_list = Cheer.query.filter_by(tagSeq=tagSeq).order_by(Cheer.seq.desc()).limit(100)
 
         return [{
+            "seq": cheer.seq,
             "content": cheer.content,
-            "color": cheer.color
+            "color" : cheer.color,
+            "password": True if cheer.password is not None else False
         } for cheer in cheer_list], 200
 
     def post(self):
@@ -53,7 +54,8 @@ class _Cheer(Resource):
                         color=value["color"],
                         tagSeq=tag.seq,
                         date=datetime.now(),
-                        ip=request.headers['X-Forwarded-For'] if 'X-Forwarded-For' in request.headers else request.remote_addr
+                        ip=request.headers['X-Forwarded-For'] if 'X-Forwarded-For' in request.headers else request.remote_addr,
+                        password=value.get("password", None)
                         )
 
             db.session.add(row)
@@ -65,3 +67,31 @@ class _Cheer(Resource):
 
         else:
             return {"error": errors}, 400
+
+
+
+
+
+
+
+
+
+
+class _DeleteCheer(Resource):
+
+
+
+    def post(self):
+        print(request.json)
+        value = request.json
+
+        cheer = Cheer.query.filter_by(seq=value["seq"]).first()
+        if cheer is None:
+            return {"error": "글을 찾을 수 없습니다."}, 404
+        if value["password"] != cheer.password:
+            return {"error": "비밀번호가 일치하지 않습니다."}, 403
+
+        db.session.delete(cheer)
+        db.session.commit()
+
+        return {"result": "성공적으로 삭제되었습니다"}, 200

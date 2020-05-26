@@ -132,3 +132,6 @@ chrome-user-data
 
 /migrations/
 /config.ini
+sample.txt
+txt/
+images/

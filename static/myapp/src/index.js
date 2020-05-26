@@ -29,6 +29,7 @@ import 개요1 from "./components/개요1"
 import 개요2 from "./components/개요2"
 import 힘든점 from "./components/힘든점"
 import 응원 from "./components/응원"
+import 생각모음 from "./components/생각모음"
 
 
 import useDebounce from "./lib/useDebounce";
@@ -108,8 +109,6 @@ const Fullpage = () => {
     const [tagLoaded, setTagLoaded] = useState(false);
 
 
-
-
     async function GetTagHandler() {
         let response = await GetTag()
         setTagList(response.data);
@@ -130,36 +129,32 @@ const Fullpage = () => {
             let temp2 = [];
 
 
-
-
-
-
-
             async function GetDifficultHandler() {
-                const res = await GetDifficult({"tagName" : tagList[tag]});
+                const res = await GetDifficult({"tagName": tagList[tag]});
                 switch (res.status) {
                     case 200:
 
-                         setDiff({
-                             "startIndex": 0, "data": res.data
-                         })
+                        setDiff({
+                            "startIndex": 0, "data": res.data
+                        })
                         break;
                 }
             }
+
             async function GetCheerHandler() {
-                const res = await GetCheer({"tagName" : tagList[tag]});
+                const res = await GetCheer({"tagName": tagList[tag]});
                 switch (res.status) {
                     case 200:
 
-                         setCheer({
-                             "startIndex": 0, "data": res.data
-                         })
+                        setCheer({
+                            "startIndex": 0, "data": res.data
+                        })
                         break;
                 }
             }
+
             GetDifficultHandler();
             GetCheerHandler();
-
 
 
             //  setDiff({
@@ -221,27 +216,29 @@ const Fullpage = () => {
             // })
 
             async function GetDifficultHandler() {
-                const res = await GetDifficult({"tagName" : tagList[tag]});
+                const res = await GetDifficult({"tagName": tagList[tag]});
                 switch (res.status) {
                     case 200:
 
-                         setDiff({
-                             "startIndex": 0, "data": res.data
-                         })
+                        setDiff({
+                            "startIndex": 0, "data": res.data
+                        })
                         break;
                 }
             }
+
             async function GetCheerHandler() {
-                const res = await GetCheer({"tagName" : tagList[tag]});
+                const res = await GetCheer({"tagName": tagList[tag]});
                 switch (res.status) {
                     case 200:
 
-                         setCheer({
-                             "startIndex": 0, "data": res.data
-                         })
+                        setCheer({
+                            "startIndex": 0, "data": res.data
+                        })
                         break;
                 }
             }
+
             GetDifficultHandler();
             GetCheerHandler();
 
@@ -312,7 +309,7 @@ const Fullpage = () => {
                                     </div>
                                     <div className="section">
                                         <div className="slide" data-anchor="slide1" id={"개요1"}>
-                                            <개요1/>
+                                            <개요1 animate={(t) => animate(t)}/>
                                         </div>
                                         <div className="slide" data-anchor="slide2" id={"개요2"}>
                                             <개요2/>
@@ -342,7 +339,9 @@ const Fullpage = () => {
                                         </div>
                                     </div>
                                     <div className="section">
-                                        <p>Section 4</p>
+                                        <생각모음
+                                            debouncedSize={debouncedSize}
+                                        />
                                     </div>
 
                                 </ReactFullpage.Wrapper>

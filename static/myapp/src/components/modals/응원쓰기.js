@@ -10,7 +10,7 @@ import TextareaAutosize from 'react-autosize-textarea';
 const 응원쓰기 = props => {
 
     const [tagOption, setTagOption] = useState(props.tagList);
-    const [selectedTag, setSelectedTag] = useState(tagOption[0])
+    const [selectedTag, setSelectedTag] = useState(tagOption[props.tag])
     //setTagOption(['1', '2', '3'])
     const defaultOption = tagOption[0];
     const colors = ["#85f07b", "#f9a5f5", "#a9f6f4", "#f1f29a", "#8aeec3"]

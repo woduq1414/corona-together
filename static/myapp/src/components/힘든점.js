@@ -101,6 +101,7 @@ const 힘든점 = props => {
             ),
             "footer": (
                 <React.Fragment>
+                    {diff.password &&
                     <div className={"more_deleteButton"}
                          onClick={() => {
                              MySwal.fire({
@@ -142,9 +143,6 @@ const 힘든점 = props => {
                                                                  "scrollbarPadding": false,
                                                                  "showConfirmButton": false
                                                              });
-
-
-
 
 
                                                              break;
@@ -191,10 +189,16 @@ const 힘든점 = props => {
                                      "footer": "pass_footer",
                                      "input": "pass_input"
                                  },
-                                 "allowEnterKey" : false
+                                 "allowEnterKey": false
                              })
                          }}>삭제
                     </div>
+                    }
+                    {!diff.password &&
+                    <div>
+
+                    </div>
+                    }
                     <div className={"more_confirmButton"}
                          onClick={() => {
                              MySwal.close()

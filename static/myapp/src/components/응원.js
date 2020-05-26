@@ -7,14 +7,14 @@ import 태그컨테이너 from "./태그컨테이너";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import {WriteCheer} from "../api/Cheer";
+import {WriteCheer, GetCheer, DeleteCheer} from "../api/Cheer";
 
 const MySwal = withReactContent(Swal)
 
 
 import "../styles/응원.css";
 import {toast, ToastContainer} from "react-toastify";
-import {WriteDifficult} from "../api/Difficult";
+import {DeleteDifficult, WriteDifficult} from "../api/Difficult";
 
 
 let cheer = {
@@ -26,7 +26,17 @@ toast.configure({})
 
 
 const 응원 = props => {
+    async function GetCheerHandler() {
+        const res = await GetCheer({"tagName": props.tagList[props.tag]});
+        switch (res.status) {
+            case 200:
 
+                props.setCheer({
+                    "startIndex": 0, "data": res.data
+                })
+                break;
+        }
+    }
 
     const [limit, setLimit] = useState(2);
 
@@ -96,11 +106,119 @@ const 응원 = props => {
 
 
             ),
+            "footer": (
+                <React.Fragment>
+                    {cheer.password &&
+                    <div className={"more_deleteButton"}
+                         onClick={() => {
+                             MySwal.fire({
+                                 title: "비밀번호를 입력해주세요.",
+                                 input: "text",
+                                 footer:
+                                     <React.Fragment>
+                                         <div className={"pass_confirmButton"} onClick={() => {
+                                             const password = document.getElementsByClassName("pass_input")[0].value
+                                             if (password.trim() == "") {
+                                                 toast.error(
+                                                     "비밀번호를 입력해주세요."
+                                                     , {
+                                                         position: "top-right",
+                                                         autoClose: 5000,
+                                                         hideProgressBar: false,
+                                                         closeOnClick: true,
+                                                         pauseOnHover: true,
+                                                         draggable: true,
+                                                         progress: undefined,
+                                                     });
+
+
+                                             } else {
+                                                 async function DeleteCheerHandler(value) {
+
+                                                     const res = await DeleteCheer(value);
+
+                                                     switch (res.status) {
+                                                         case 200:
+
+
+                                                             GetCheerHandler();
+
+                                                             MySwal.close()
+                                                             MySwal.fire({
+                                                                 title: "성공적으로 삭제되었습니다!",
+                                                                 icon: 'success',
+                                                                 "scrollbarPadding": false,
+                                                                 "showConfirmButton": false
+                                                             });
+
+
+                                                             break;
+                                                         case 403:
+                                                         case 404:
+                                                             console.log(res.data.error)
+                                                             toast.error(
+                                                                 res.data.error
+
+                                                                 , {
+                                                                     position: "top-right",
+                                                                     autoClose: 3000,
+                                                                     hideProgressBar: false,
+                                                                     closeOnClick: true,
+                                                                     pauseOnHover: true,
+                                                                     draggable: true,
+                                                                     progress: undefined,
+                                                                 });
+                                                             break;
+                                                     }
+
+                                                     //alert(res.data)
+                                                 }
+
+                                                 let value = {};
+                                                 value.password = password;
+                                                 value.seq = cheer.seq;
+                                                 console.log(value)
+                                                 DeleteCheerHandler(value)
+
+
+                                             }
+                                         }}>확인
+                                         </div>
+
+                                     </React.Fragment>
+                                 , "scrollbarPadding":
+                                     false,
+                                 "customClass": {
+                                     "popup": "pass_modalContainer",
+                                     "content": "pass_modalContent",
+                                     "actions": 'pass_action',
+                                     'confirmButton': 'pass_exitButton',
+                                     "footer": "pass_footer",
+                                     "input": "pass_input"
+                                 },
+                                 "allowEnterKey": false
+                             })
+                         }}>삭제
+                    </div>
+                    }
+                    {!cheer.password &&
+                    <div>
+
+                    </div>
+                    }
+                    <div className={"more_confirmButton"}
+                         onClick={() => {
+                             MySwal.close()
+                         }}>닫기
+                    </div>
+                </React.Fragment>
+            ),
 
             "customClass": {
                 "popup": "mc_content",
                 "content": "more_modalContent",
-                "actions": 'more_footer',
+                "actions": 'more_action',
+                "footer": "more_footer",
                 'confirmButton': 'more_exitButton',
             },
             "scrollbarPadding": false
@@ -133,61 +251,132 @@ const 응원 = props => {
                             "color": document.querySelector('.wc_color.active').getAttribute('color')
                         }
 
-
-                        async function WriteCheerHandler() {
-
-                            const res = await WriteCheer(value);
-
-                            switch (res.status) {
-                                case 201:
-                                    if (value.tagName === props.tagList[props.tag]) {
-                                        props.setCheer({
-                                            "startIndex": cheer.startIndex,
-                                            "data": [value].concat(cheer.data)
-                                        })
-                                    }
-
-                                    MySwal.fire({
-                                        title: "정상적으로 등록되었습니다!",
-                                        icon: 'success',
-                                        "scrollbarPadding": false,
-                                        "showConfirmButton": false
-                                    });
-
-
-                                    setTimeout(function () {
-                                        MySwal.close()
-
-                                    }, 2000);
-
-
-                                    break;
-                                case 400:
-                                    console.log(res.data.error)
-                                    toast.error(
-                                        <div>
-                                            {res.data.error.map((error) => {
-                                                return <p>{error}</p>
-                                            })
-                                            }
-                                        </div>
-
-                                        , {
-                                            position: "top-right",
-                                            autoClose: 5000,
-                                            hideProgressBar: false,
-                                            closeOnClick: true,
-                                            pauseOnHover: true,
-                                            draggable: true,
-                                            progress: undefined,
-                                        });
-                                    break;
-                            }
-
-                            //alert(res.data)
+                        let errors = [];
+                        if (value.content.trim() == "") {
+                            errors.push("내용이 비어있습니다.")
+                        }
+                        if (value.content.length > 2000) {
+                            errors.push("내용은 2000자까지 가능합니다.")
+                        }
+                        if (value.color == "" || value.color == undefined) {
+                            errors.push("포스트잇 색깔을 선택해주세요.")
                         }
 
-                        WriteCheerHandler()
+                        console.log("SAFD", errors, value)
+                        if (errors.length > 0) {
+                            toast.error(
+                                <div>
+                                    {errors.map((error) => {
+                                        return <p>{error}</p>
+                                    })
+                                    }
+                                </div>
+
+                                , {
+                                    position: "top-right",
+                                    autoClose: 3000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                });
+
+                        } else {
+
+                            async function WriteCheerHandler(value) {
+                                MySwal.close()
+                                const res = await WriteCheer(value);
+
+                                switch (res.status) {
+                                    case 201:
+                                        if (value.tagName === props.tagList[props.tag]) {
+
+
+                                            GetCheerHandler();
+                                        }
+                                        MySwal.close()
+                                        MySwal.fire({
+                                            title: "정상적으로 등록되었습니다!",
+                                            icon: 'success',
+                                            "scrollbarPadding": false,
+                                            "showConfirmButton": false
+                                        });
+
+
+                                        break;
+                                    case 400:
+                                        console.log(res.data.error)
+                                        toast.error(
+                                            <div>
+                                                {res.data.error.map((error) => {
+                                                    return <p>{error}</p>
+                                                })
+                                                }
+                                            </div>
+
+                                            , {
+                                                position: "top-right",
+                                                autoClose: 3000,
+                                                hideProgressBar: false,
+                                                closeOnClick: true,
+                                                pauseOnHover: true,
+                                                draggable: true,
+                                                progress: undefined,
+                                            });
+                                        break;
+                                }
+
+                                //alert(res.data)
+                            }
+
+                            MySwal.close()
+                            MySwal.fire({
+                                title: "비밀번호를 설정하실래요?",
+                                text: "비밀번호를 설정하면 추후 글을 삭제할 때 사용할 수 있어요.",
+                                input: "text",
+                                footer: <React.Fragment>
+                                    <div className={"pass_confirmButton"} onClick={() => {
+                                        const password = document.getElementsByClassName("pass_input")[0].value
+                                        if (password.trim() == "") {
+                                            toast.error(
+                                                "비밀번호를 입력해주세요."
+                                                , {
+                                                    position: "top-right",
+                                                    autoClose: 3000,
+                                                    hideProgressBar: false,
+                                                    closeOnClick: true,
+                                                    pauseOnHover: true,
+                                                    draggable: true,
+                                                    progress: undefined,
+                                                });
+
+
+                                        } else {
+                                            value.password = password
+                                            WriteCheerHandler(value)
+                                        }
+                                    }}>네
+                                    </div>
+                                    <div className={"pass_confirmButton"} onClick={() => {
+                                        WriteCheerHandler(value)
+                                    }}>아니요
+                                    </div>
+                                </React.Fragment>
+                                , "scrollbarPadding":
+                                    false,
+                                "customClass": {
+                                    "popup": "pass_modalContainer",
+                                    "content": "pass_modalContent",
+                                    "actions": 'pass_action',
+                                    'confirmButton': 'pass_exitButton',
+                                    "footer": "pass_footer",
+                                    "input": "pass_input"
+                                },
+                                "allowEnterKey": false
+                            })
+
+                        }
                     }
                     }>확인
                     </div>
