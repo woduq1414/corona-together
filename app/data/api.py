@@ -108,7 +108,7 @@ class GetWordCloud(Resource):
         fig = plt.figure(figsize=(10, 10))
         plt.imshow(array, interpolation="bilinear")
         plt.axis("off")
-        plt.show()
+        # plt.show()
 
         filepath = get_absoulute_path(f"./images/{tagName}.png")
         fig.savefig(filepath)

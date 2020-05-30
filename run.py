@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from app import create_app
-from flask import render_template
+from flask import render_template, request, redirect
 
 # app = create_app('config')
 # app.app_context().push()
@@ -11,6 +11,23 @@ from flask_limiter.util import get_remote_address
 
 app = create_app('config')
 # db.create_all(app=app)
+
+
+@app.before_request
+def force_https():
+    import socket
+    hostname = socket.gethostname()
+    isLocal = True
+    if hostname[:7] == "DESKTOP":
+        isLocal = True
+    else:
+        isLocal = False
+    if isLocal == False:
+        if request.endpoint in app.view_functions and not request.is_secure:
+            return redirect(request.url.replace('http://', 'https://'))
+
+
+
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
