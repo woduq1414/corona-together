@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react";
 
 import "../styles/생각모음.css";
 
+import {GetWordcloud} from "../api/Data";
 
 import {withRouter} from "react-router-dom";
+import {GetCheer} from "../api/Cheer";
 
 
 const 생각모음 = props => {
@@ -18,7 +20,7 @@ const 생각모음 = props => {
         document.getElementsByClassName("tc_container")[0].insertBefore(el2, el);
         const height = document.getElementById('tc_temp').getBoundingClientRect().height;
         const width = document.getElementById('tc_temp').getBoundingClientRect().width;
-        const oneSize = Math.min(width,height) * 0.8;
+        const oneSize = Math.min(width, height) * 0.8;
         document.getElementById('tc_wordcloud').height = oneSize;
         document.getElementById('tc_wordcloud').width = oneSize;
         document.getElementsByClassName("tc_container")[0].removeChild(el2);
@@ -28,6 +30,27 @@ const 생각모음 = props => {
         //console.log(width, height)
 
     }, [props.debouncedSize]);
+
+    const [wordcloud, setWordcloud] = useState("");
+
+    useEffect(() => {
+        async function GetWordcloudHandler() {
+            const res = await GetWordcloud({"tagName": "학생"});
+            switch (res.status) {
+                case 200:
+
+                    setWordcloud(res.data);
+                    break;
+
+                case 404:
+
+            }
+
+        }
+        GetWordcloudHandler();
+    }, [])
+
+
     return (
         <React.Fragment>
             <div className={"tc_container"}>
@@ -36,7 +59,7 @@ const 생각모음 = props => {
                 </div>
                 <div className={"tc_imageContainer"} id={"tc_imageContainer"}>
                     <img id={"tc_wordcloud"}
-                         src={'http://127.0.0.1:5000/api/data/wordcloud?tagName=%ED%95%99%EC%83%9D'}/>
+                         src={wordcloud}/>
                 </div>
                 <div className={"tc_bottomText"}>
                     그래서, 우리 스스로를 응원해보고자 합니다.

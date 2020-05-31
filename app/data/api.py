@@ -73,7 +73,7 @@ class GetWordCloud(Resource):
         for _ in Cheer.query.filter_by(tagSeq=tagSeq).all():
             lis.append(_.content)
         print(lis)
-        font_path = 'NanumBarunGothic.ttf'
+        font_path = get_absoulute_path('NanumBarunGothic.ttf')
         circle_mask = np.array(Image.open(get_absoulute_path("circle_mask.png")))
         wordcloud = WordCloud(
             font_path=font_path,
