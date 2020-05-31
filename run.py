@@ -13,18 +13,18 @@ app = create_app('config')
 # db.create_all(app=app)
 
 
-@app.before_request
-def force_https():
-    import socket
-    hostname = socket.gethostname()
-    isLocal = True
-    if hostname[:7] == "DESKTOP":
-        isLocal = True
-    else:
-        isLocal = False
-    if isLocal == False:
-        if request.endpoint in app.view_functions and not request.is_secure:
-            return redirect(request.url.replace('http://', 'https://'))
+# @app.before_request
+# def force_https():
+#     import socket
+#     hostname = socket.gethostname()
+#     isLocal = True
+#     if hostname[:7] == "DESKTOP":
+#         isLocal = True
+#     else:
+#         isLocal = False
+#     if isLocal == False:
+#         if request.endpoint in app.view_functions and not request.is_secure:
+#             return redirect(request.url.replace('http://', 'https://'))
 
 
 
