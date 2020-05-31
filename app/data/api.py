@@ -97,12 +97,13 @@ class GetWordCloud(Resource):
         for word, r in sorted(keywords.items(), key=lambda x: x[1], reverse=True)[:30]:
             print('%8s:\t%.4f' % (word, r))
 
+        result = wordcloud.generate_from_frequencies(keywords)
         try:
-            wordcloud = wordcloud.generate_from_frequencies(keywords)
+            result = wordcloud.generate_from_frequencies(keywords)
         except:
             return {"error" : "데이터가 부족합니다."}, 404
 
-        array = wordcloud.to_array()
+        array = result.to_array()
         print(type(array))  # numpy.ndarray
         print(array.shape)  # (800, 800, 3)
         fig = plt.figure(figsize=(10, 10))
