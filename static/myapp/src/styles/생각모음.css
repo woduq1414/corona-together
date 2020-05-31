@@ -24,18 +24,24 @@
     }
 
 
-     img#tc_wordcloud {
-        margin : 0 auto;
+    img#tc_wordcloud {
+        margin: 0 auto;
+
     }
 
-     div.tc_imageContainer {
+    div#tc_wordcloud {
+        margin: 0 auto;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+
+
+    div.tc_imageContainer {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
-
-
 
 
 }
@@ -68,9 +74,16 @@
     }
 
 
-
     img#tc_wordcloud {
-        margin : 0 auto;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    div#tc_wordcloud {
+        margin: 0 auto;
+        text-align: center;
+        font-size: 1.2rem;
     }
 
     div.tc_imageContainer {

@@ -9,6 +9,8 @@ import {GetCheer} from "../api/Cheer";
 
 
 const 생각모음 = props => {
+    const [wordcloud, setWordcloud] = useState({src: "오류!!", created: false});
+
     useEffect(() => {
         console.log("haha")
         const el = document.getElementById('tc_imageContainer');
@@ -29,9 +31,9 @@ const 생각모음 = props => {
         //const height = document.getElementById('tc_imageContainer').getBoundingClientRect().height;
         //console.log(width, height)
 
-    }, [props.debouncedSize]);
+    }, [props.debouncedSize, wordcloud]);
 
-    const [wordcloud, setWordcloud] = useState({src: res.data, created: false});
+
 
     useEffect(() => {
 
@@ -62,16 +64,22 @@ const 생각모음 = props => {
                 </div>
                 <div className={"tc_imageContainer"} id={"tc_imageContainer"}>
                     {
-                        wordcloud.created && (
+                        wordcloud.created &&
                             <img id={"tc_wordcloud"}
-                                 src={wordcloud}/>
-                        )
+                                 src={wordcloud.src}/>
+
+                    }
+                    {
+                        !wordcloud.created &&
+                            <div id={"tc_wordcloud"}>
+                                {wordcloud.src}
+                            </div>
                     }
 
 
                 </div>
                 <div className={"tc_bottomText"}>
-                    그래서, 우리 스스로를 응원해보고자 합니다.
+                    {props.tagName}!!
 
 
                 </div>

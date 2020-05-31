@@ -52,6 +52,7 @@ class GetData(Resource):
 class GetWordCloud(Resource):
 
     def get(self):
+
         def get_absoulute_path(path):
             script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
             rel_path = path

@@ -339,9 +339,11 @@ const Fullpage = () => {
                                         </div>
                                     </div>
                                     <div className="section">
+
                                         <생각모음
-                                            debouncedSize={debouncedSize}
+                                                debouncedSize={debouncedSize}
                                         />
+
                                     </div>
 
                                 </ReactFullpage.Wrapper>
