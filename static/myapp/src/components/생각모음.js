@@ -31,22 +31,25 @@ const 생각모음 = props => {
 
     }, [props.debouncedSize]);
 
-    const [wordcloud, setWordcloud] = useState("");
+    const [wordcloud, setWordcloud] = useState({src: res.data, created: false});
 
     useEffect(() => {
+
         async function GetWordcloudHandler() {
             const res = await GetWordcloud({"tagName": "학생"});
             switch (res.status) {
                 case 200:
 
-                    setWordcloud(res.data);
+                    setWordcloud({src: res.data, created: true});
                     break;
 
                 case 404:
+                    setWordcloud({src: res.data, created: false});
 
             }
 
         }
+
         GetWordcloudHandler();
     }, [])
 
@@ -58,8 +61,14 @@ const 생각모음 = props => {
                     우리들의 생각 모음
                 </div>
                 <div className={"tc_imageContainer"} id={"tc_imageContainer"}>
-                    <img id={"tc_wordcloud"}
-                         src={wordcloud}/>
+                    {
+                        wordcloud.created && (
+                            <img id={"tc_wordcloud"}
+                                 src={wordcloud}/>
+                        )
+                    }
+
+
                 </div>
                 <div className={"tc_bottomText"}>
                     그래서, 우리 스스로를 응원해보고자 합니다.

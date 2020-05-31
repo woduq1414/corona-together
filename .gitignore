@@ -134,4 +134,4 @@ chrome-user-data
 /config.ini
 sample.txt
 txt/
-images/
+# images/
