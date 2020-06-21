@@ -91,7 +91,10 @@ class GetWordCloud(Resource):
             max_length=10,  # 단어의 최대 길이
             verbose=True
         )
-        keywords, rank, graph = wordrank_extractor.extract(lis, beta, max_iter)
+        try:
+            keywords, rank, graph = wordrank_extractor.extract(lis, beta, max_iter)
+        except:
+            return {"error" : "데이터가 부족합니다."}, 404
         # keywords, sents = summarize_with_sentences(lis, num_keywords=100, num_keysents=10)
         print(keywords)
 

@@ -28,7 +28,7 @@ if isLocal:
 
     DEBUG = True
     PORT = 5000
-    HOST = "0.0.0.0"
+    HOST = "127.0.0.1"
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = config['DEFAULT']['SECRET_KEY']

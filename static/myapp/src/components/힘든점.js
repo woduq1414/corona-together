@@ -470,7 +470,7 @@ const 힘든점 = props => {
                         diff.data.slice(diff.startIndex, diff.startIndex + limit).map((diff) => {
                             return (
                                 <div>
-                                    <div className={"diff_content"}>
+                                    <div className={"diff_content hvr-grow"}>
                                         <div className={"diff_contentTitle"}>
                                             {diff.title}
                                         </div>

@@ -35,6 +35,19 @@ html {
     background-color: ivory;
 }
 
+#힘든점 {
+    background-color :
+}
+
+#응원 {
+
+}
+
+#생각모음 {
+
+}
+
+
 .fp-slidesNav ul {
     text-align: center;
 }
@@ -135,16 +148,22 @@ html {
 
     .fp-controlArrow {
         opacity: 0.5;
+        border-width: 0px 7px 7px 0px !important;
+        padding : 25px;
     }
+
+
 
     .fp-controlArrow.fp-prev {
         margin-left: 30px;
-        border-color: transparent #dadada transparent transparent;
+        border-color: #dadada;
+        transform: rotate(135deg);
     }
 
     .fp-controlArrow.fp-next {
         margin-right: 30px;
-        border-color: transparent transparent transparent #dadada;
+        border-color: #dadada;
+        transform: rotate(-45deg);
     }
 
 }

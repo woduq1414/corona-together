@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from "react";
 
 import "../styles/개요.css";
+
+
+
 import CountUp from 'react-countup';
 import anime from 'animejs/lib/anime.es.js';
 
@@ -44,7 +47,7 @@ const 개요1 = props => {
                 </div>
                 <div className={"outline_infoContainer"}>
                     <div className={"outline_info"}>
-                        <div className={"outline_icon"}>
+                        <div className={"outline_icon hvr-grow"}>
                             <img className={"outline_image"} src={require('../images/검사.png')}/>
                         </div>
                         <div className={"outline_text"}>
@@ -52,7 +55,7 @@ const 개요1 = props => {
                         </div>
                     </div>
                     <div className={"outline_info"}>
-                        <div className={"outline_icon"}>
+                        <div className={"outline_icon hvr-grow"}>
                             <img className={"outline_image"} src={require('../images/확진.png')}/>
                         </div>
                         <div className={"outline_text"}>
@@ -60,7 +63,7 @@ const 개요1 = props => {
                         </div>
                     </div>
                     <div className={"outline_info"}>
-                        <div className={"outline_icon"}>
+                        <div className={"outline_icon hvr-grow"}>
                             <img className={"outline_image"} src={require('../images/완치.png')}/>
                         </div>
                         <div className={"outline_text"}>

@@ -17,7 +17,7 @@ const 메인 = props => {
                 </div>
                 <div className={"main_vl"}></div>
                 <div className={"main_right"}>
-                    <div className={"main_subtitle"}>누군가의 힘이<br/>되어주세요</div>
+                    {/*<div className={"main_subtitle"}>누군가의 힘이<br/>되어주세요</div>*/}
                 </div>
             </div>
 

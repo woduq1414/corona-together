@@ -21,7 +21,7 @@ import CountUp from 'react-countup';
 
 import anime from 'animejs/lib/anime.es.js';
 import {useEffect, useState} from "react";
-
+import "../node_modules/hover.css/css/hover-min.css"
 import "./styles/nav.css";
 
 import 메인 from "./components/메인"
@@ -78,13 +78,17 @@ function animate(elements) {
 
     for (let i = 0; i < elements.length; i++) {
         let el = elements[i]
-        el.innerHTML = el.getAttribute('start') * 1;
+        //el.innerHTML = el.getAttribute('start') * 1;
+        let temp = {"data": el.getAttribute('start') * 1};
         anime({
-            targets: el,
-            textContent: numberWithCommas(el.getAttribute('end') * 1),
+            targets: temp,
+            data: el.getAttribute('end') * 1,
             easing: 'easeOutExpo',
             round: 1,
             duration: 6000,
+            update: function () {
+                el.innerHTML = numberWithCommas(temp.data);
+            }
         });
     }
 }
@@ -105,6 +109,8 @@ const Fullpage = () => {
     const [diff, setDiff] = useState([]);
     const [cheer, setCheer] = useState([]);
     const [tagList, setTagList] = useState([""]);
+
+    const [active, setActive] = useState(0);
 
     const [tagLoaded, setTagLoaded] = useState(false);
 
@@ -170,6 +176,14 @@ const Fullpage = () => {
     useEffect(() => {
         GetTagHandler();
 
+        // let arrows = document.getElementsByClassName("fp-next");
+        // for(let el of arrows){
+        //     el.classList.add("hvr-forward");
+        // }
+        // arrows = document.getElementsByClassName("fp-prev");
+        // for(let el of arrows){
+        //     el.classList.add("hvr-backward");
+        // }
 
     }, []);
 
@@ -285,7 +299,7 @@ const Fullpage = () => {
                     const counters = document.querySelectorAll(`.anime[class*="pos_${destination.index}"]`)
                     animate(counters)
 
-
+                    setActive(destination.index)
                 }
                 }
 
@@ -341,7 +355,11 @@ const Fullpage = () => {
                                     <div className="section">
 
                                         <생각모음
-                                                debouncedSize={debouncedSize}
+                                            debouncedSize={debouncedSize}
+                                            tagList={tagList}
+                                            tag={tag}
+                                            setTag={(t) => setTag(t)}
+                                            activeSection={active}
                                         />
 
                                     </div>

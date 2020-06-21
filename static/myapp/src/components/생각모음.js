@@ -6,11 +6,12 @@ import {GetWordcloud} from "../api/Data";
 
 import {withRouter} from "react-router-dom";
 import {GetCheer} from "../api/Cheer";
+import 태그컨테이너 from "./태그컨테이너";
 
 
 const 생각모음 = props => {
     const [wordcloud, setWordcloud] = useState({src: "오류!!", created: false});
-
+    const [currentTag, setCurrentTag] = useState(-1);
     useEffect(() => {
         console.log("haha")
         const el = document.getElementById('tc_imageContainer');
@@ -34,52 +35,70 @@ const 생각모음 = props => {
     }, [props.debouncedSize, wordcloud]);
 
 
-
     useEffect(() => {
 
         async function GetWordcloudHandler() {
-            const res = await GetWordcloud({"tagName": "학생"});
-            switch (res.status) {
-                case 200:
+            if (props.tagList[props.tag] === undefined || props.tagList[props.tag] == "") {
+                setWordcloud({src: "오류!", created: false});
+            } else {
+                const res = await GetWordcloud({"tagName": props.tagList[props.tag]});
 
-                    setWordcloud({src: res.data, created: true});
-                    break;
+                switch (res.status) {
+                    case 200:
 
-                case 404:
-                    setWordcloud({src: res.data, created: false});
+                        setWordcloud({src: res.data, created: true});
+                        break;
 
+                    case 404:
+                        setWordcloud({src: "오류!", created: false});
+                        break;
+                    default:
+                        setWordcloud({src: "오류!", created: false});
+                        break;
+                }
             }
 
+
+        }
+        // console.error(props.activeSection)
+        if (props.activeSection === 3 && currentTag !== props.tag) {
+            setWordcloud({src: "불러오는 중~", created: false});
+            GetWordcloudHandler();
+            setCurrentTag(props.tag)
         }
 
-        GetWordcloudHandler();
-    }, [])
+    }, [props.tag, props.activeSection])
 
 
     return (
         <React.Fragment>
             <div className={"tc_container"}>
                 <div className={"tc_title"}>
-                    우리들의 생각 모음
+                    {props.tagList[props.tag]}에 대한 생각 모음
                 </div>
+
+                <태그컨테이너 tag={props.tag} tagList={props.tagList} setTag={(e) => {
+                    props.setTag(e)
+                }}/>
+
                 <div className={"tc_imageContainer"} id={"tc_imageContainer"}>
                     {
                         wordcloud.created &&
-                            <img id={"tc_wordcloud"}
-                                 src={wordcloud.src}/>
+                        <img id={"tc_wordcloud"}
+                             src={wordcloud.src}/>
 
                     }
                     {
                         !wordcloud.created &&
-                            <div id={"tc_wordcloud"}>
-                                {wordcloud.src}
-                            </div>
+                        <div id={"tc_wordcloud"}>
+                            {wordcloud.src}
+                        </div>
                     }
 
 
                 </div>
                 <div className={"tc_bottomText"}>
-                    {props.tagName}!!
+                    {/*{props.tagName}!!*/}
 
 
                 </div>

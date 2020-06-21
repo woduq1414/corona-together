@@ -238,7 +238,7 @@ const 응원 = props => {
 
         MySwal.fire({
             "html": (
-                <응원쓰기 tagList={props.tagList} colorIndex={Math.floor(Math.random() * 5)}/>
+                <응원쓰기 tagList={props.tagList} colorIndex={Math.floor(Math.random() * 5)} tag={props.tag}/>
             ),
             "footer": (
                 <React.Fragment>
@@ -538,12 +538,12 @@ const 응원 = props => {
 
                             return (
 
-                                <div className={"cheer_content"} onClick={() => {
+                                <div className={"cheer_content hvr-grow-rotate"} onClick={() => {
                                     showMore(cheer)
                                 }}
                                      style={{
-                                         "background-color":
-                                             `${color}`, "transform": `rotate(${Math.floor(Math.random() * 11 - 5)}deg)`
+                                         "background-color": `${color}`
+                                         // , "transform": `rotate(${Math.floor(Math.random() * 11 - 5)}deg)`
                                      }}
                                 >
                                     {/*,"transform" : `rotate(${Math.floor(Math.random() * 11 - 5)}deg)`*/}
@@ -564,32 +564,7 @@ const 응원 = props => {
                         }
 
 
-                        {/*<div className={"cheer_content"}>*/}
-                        {/*    <div className={"cheer_contentTitle"}>*/}
-                        {/*        급식이 먹고 싶어요*/}
-                        {/*    </div>*/}
-                        {/*    <div className={"cheer_contentText"}>*/}
-                        {/*        지금 몇 달 째 학교 급식을 못 먹고 있는지 모르겠어요 떡갈비 마요덮밥 먹고 싶은데 학교를 못가고 있는 건데 어떡할 거냐고요*/}
-                        {/*        아 정말 개빡치네 아니 하 아니 하 아니 하 아니 하 아니 하 아니 하 아니 하 ㅠㅠ 급식 먹고 싶다 급식 먹고 싶다 급식 먹고싶다고*/}
-                        {/*        진짜 급식 언제 주냐고*/}
-                        {/*    </div>*/}
-                        {/*    <div className={"cheer_more"}>*/}
-                        {/*        더 보기*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        {/*<div className={"cheer_content"}>*/}
-                        {/*    <div className={"cheer_contentTitle"}>*/}
-                        {/*        급식이 먹고 싶어요*/}
-                        {/*    </div>*/}
-                        {/*    <div className={"cheer_contentText"}>*/}
-                        {/*        지금 몇 달 째 학교 급식을 못 먹고 있는지 모르겠어요 떡갈비 마요덮밥 먹고 싶은데 학교를 못가고 있는 건데 어떡할 거냐고요*/}
-                        {/*        아 정말 개빡치네 아니 하 아니 하 아니 하 아니 하 아니 하 아니 하 아니 하 ㅠㅠ 급식 먹고 싶다 급식 먹고 싶다 급식 먹고싶다고*/}
-                        {/*        진짜 급식 언제 주냐고*/}
-                        {/*    </div>*/}
-                        {/*    <div className={"cheer_more"}>*/}
-                        {/*        더 보기*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
+
                     </div>
 
                     <div className={"cheer_footer"}>

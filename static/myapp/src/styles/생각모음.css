@@ -1,3 +1,6 @@
+
+
+
 @media screen and (min-width: 769px) {
     /* 데스크탑에서 사용될 스타일을 여기에 작성합니다. */
     div.tc_container {
@@ -26,7 +29,8 @@
 
     img#tc_wordcloud {
         margin: 0 auto;
-
+        border : 5px solid gray;
+        border-radius : 5rem;
     }
 
     div#tc_wordcloud {
@@ -50,9 +54,9 @@
 @media screen and (max-width: 769px) {
     /* 모바일에서 사용될 스타일을 여기에 작성합니다. */
     div.tc_container {
-        height: 80%;
+        height: 90%;
         display: flex;
-        width: 80%;
+        width: 90%;
         justify-content: space-evenly;
         flex-direction: column;
         display: flex;
@@ -76,8 +80,8 @@
 
     img#tc_wordcloud {
         margin: 0 auto;
-        text-align: center;
-        font-size: 1.2rem;
+        border : 5px solid gray;
+        border-radius : 5rem;
     }
 
     div#tc_wordcloud {
