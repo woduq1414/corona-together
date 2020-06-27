@@ -30,6 +30,7 @@
     div.cheer_contentContainer {
         display: flex;
         flex-direction: column;
+        background-color:white;
     }
 
 
@@ -231,6 +232,7 @@
         margin-top: 20px;
         border-radius: 0.25rem;
         box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        background-color:white;
 
     }
 

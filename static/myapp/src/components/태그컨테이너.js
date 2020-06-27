@@ -38,7 +38,7 @@ const 태그컨테이너 = props => {
                                     isActive = true;
                                 }
                                 return (
-                                    <태그 setTag={(e) => {
+                                    <태그 key={index} setTag={(e) => {
                                         props.setTag(e)
                                     }} tagIndex={index} tagName={tagName}
                                     isActive ={isActive}/>
@@ -82,7 +82,7 @@ const 태그컨테이너 = props => {
                 {props.tagList.length !== 0 &&
                 props.tagList.map((tagName, index) => {
                     return (
-                        <태그 setTag={(e) => {
+                        <태그 key={index} setTag={(e) => {
                             props.setTag(e)
                         }} tagIndex={index} tagName={tagName}/>
                     )

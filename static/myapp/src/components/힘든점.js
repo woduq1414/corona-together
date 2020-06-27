@@ -102,14 +102,14 @@ const 힘든점 = props => {
             "footer": (
                 <React.Fragment>
                     {diff.password &&
-                    <div className={"more_deleteButton"}
+                    <div className={"button more_deleteButton"}
                          onClick={() => {
                              MySwal.fire({
                                  title: "비밀번호를 입력해주세요.",
                                  input: "text",
                                  footer:
                                      <React.Fragment>
-                                         <div className={"pass_confirmButton"} onClick={() => {
+                                         <div className={"button pass_confirmButton"} onClick={() => {
                                              const password = document.getElementsByClassName("pass_input")[0].value
                                              if (password.trim() == "") {
                                                  toast.error(
@@ -185,7 +185,7 @@ const 힘든점 = props => {
                                      "popup": "pass_modalContainer",
                                      "content": "pass_modalContent",
                                      "actions": 'pass_action',
-                                     'confirmButton': 'pass_exitButton',
+                                     'confirmButton': 'button pass_exitButton',
                                      "footer": "pass_footer",
                                      "input": "pass_input"
                                  },
@@ -199,7 +199,7 @@ const 힘든점 = props => {
 
                     </div>
                     }
-                    <div className={"more_confirmButton"}
+                    <div className={"button more_confirmButton"}
                          onClick={() => {
                              MySwal.close()
                          }}>닫기
@@ -211,7 +211,7 @@ const 힘든점 = props => {
                 "content": "more_modalContent",
                 "actions": 'more_action',
                 "footer": "more_footer",
-                'confirmButton': 'more_exitButton',
+                'confirmButton': 'button more_exitButton',
             },
             "scrollbarPadding": false
         })
@@ -231,7 +231,7 @@ const 힘든점 = props => {
             "footer": (
                 <React.Fragment>
                     {/*<ToastContainer/>*/}
-                    <div className={"wd_confirmButton"} onClick={() => {
+                    <div className={"button wd_confirmButton"} onClick={() => {
 
 
                         const value = {
@@ -256,8 +256,8 @@ const 힘든점 = props => {
                         if (errors.length > 0) {
                             toast.error(
                                 <div>
-                                    {errors.map((error) => {
-                                        return <p>{error}</p>
+                                    {errors.map((error, index) => {
+                                        return <p key={index}>{error}</p>
                                     })
                                     }
                                 </div>
@@ -302,8 +302,8 @@ const 힘든점 = props => {
                                         console.log(res.data.error)
                                         toast.error(
                                             <div>
-                                                {res.data.error.map((error) => {
-                                                    return <p>{error}</p>
+                                                {res.data.error.map((error, index) => {
+                                                    return <p key={index}>{error}</p>
                                                 })
                                                 }
                                             </div>
@@ -329,7 +329,7 @@ const 힘든점 = props => {
                                 text: "비밀번호를 설정하면 추후 글을 삭제할 때 사용할 수 있어요.",
                                 input: "text",
                                 footer: <React.Fragment>
-                                    <div className={"pass_confirmButton"} onClick={() => {
+                                    <div className={"button pass_confirmButton"} onClick={() => {
                                         const password = document.getElementsByClassName("pass_input")[0].value
                                         if (password.trim() == "") {
                                             toast.error(
@@ -351,7 +351,7 @@ const 힘든점 = props => {
                                         }
                                     }}>네
                                     </div>
-                                    <div className={"pass_confirmButton"} onClick={() => {
+                                    <div className={"button pass_confirmButton"} onClick={() => {
                                         WriteDifficultHandler(value)
                                     }}>아니요
                                     </div>
@@ -362,7 +362,7 @@ const 힘든점 = props => {
                                     "popup": "pass_modalContainer",
                                     "content": "pass_modalContent",
                                     "actions": 'pass_action',
-                                    'confirmButton': 'pass_exitButton',
+                                    'confirmButton': 'button pass_exitButton',
                                     "footer": "pass_footer",
                                     "input": "pass_input"
                                 },
@@ -383,7 +383,7 @@ const 힘든점 = props => {
                 "popup": "wd_modalContainer",
                 "content": "wd_modalContent",
                 "actions": 'wd_action',
-                'confirmButton': 'wd_exitButton',
+                'confirmButton': 'button wd_exitButton',
                 "footer": "wd_footer"
             },
             "showCancelButton": true,
@@ -453,7 +453,7 @@ const 힘든점 = props => {
 
                 <div className={"diff_header"}>
                     <div className={"diff_title"}>이런 점이 힘들어요</div>
-                    <div className={"diff_writeButton"} onClick={() => {
+                    <div className={"button diff_writeButton"} onClick={() => {
                         writeDiff()
                     }}>힘든 점 쓰기
                     </div>
@@ -467,19 +467,19 @@ const 힘든점 = props => {
                     <div className={"diff_contents"} id={"diff_contents"}>
 
                         {diff.data &&
-                        diff.data.slice(diff.startIndex, diff.startIndex + limit).map((diff) => {
+                        diff.data.slice(diff.startIndex, diff.startIndex + limit).map((diff, index) => {
                             return (
-                                <div>
-                                    <div className={"diff_content hvr-grow"}>
+                                <div key={index}>
+                                    <div className={"diff_content hvr-grow"}  onClick={() => {
+                                            showMore(diff)
+                                        }}>
                                         <div className={"diff_contentTitle"}>
                                             {diff.title}
                                         </div>
                                         <div className={"diff_contentText"}>
                                             {diff.content}
                                         </div>
-                                        <div className={"diff_more"} onClick={() => {
-                                            showMore(diff)
-                                        }}>
+                                        <div className={"diff_more"}>
                                             더 보기
                                         </div>
                                     </div>
@@ -519,12 +519,12 @@ const 힘든점 = props => {
                     </div>
 
                     <div className={"diff_footer"}>
-                        <div className={"diff_prev"} onClick={() => {
+                        <div className={"button diff_prev"} onClick={() => {
                             prev()
                         }}>
                             이전
                         </div>
-                        <div className={"diff_next"} onClick={() => {
+                        <div className={"button diff_next"} onClick={() => {
                             next()
                         }}>
                             다음

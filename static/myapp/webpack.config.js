@@ -11,7 +11,7 @@ const BUILD_PATH = path.resolve(ROOT_PATH, 'dist');
 
 module.exports = {
     entry: {
-        vender: ['babel-polyfill','eventsource-polyfill', 'react', 'react-dom'],
+        vender: ['babel-polyfill', 'eventsource-polyfill', 'react', 'react-dom'],
         app: APP_PATH
     },
     output: {
@@ -62,7 +62,7 @@ module.exports = {
                                 loader: require.resolve("css-loader"),
                                 options: {
                                     importLoaders: 1
-                                }
+                                },
                             }
                         ]
                     },

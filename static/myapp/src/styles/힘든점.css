@@ -24,7 +24,7 @@
         flex-grow: 1;
         margin-top: 20px;
         border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        /*box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);*/
 
     }
 
@@ -43,6 +43,9 @@
         display: flex;
         justify-content: space-evenly;
         flex-direction: column;
+        cursor : pointer;
+
+        background-color: white;
     }
 
     div.diff_contentTitle {
@@ -154,7 +157,7 @@
         flex-grow: 1;
         margin-top: 20px;
         border-radius: 0.25rem;
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        /*box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);*/
 
     }
 
@@ -173,6 +176,8 @@
         display: flex;
         justify-content: space-evenly;
         flex-direction: column;
+
+        background-color:white;
     }
 
     div.diff_contentTitle {

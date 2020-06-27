@@ -109,14 +109,14 @@ const 응원 = props => {
             "footer": (
                 <React.Fragment>
                     {cheer.password &&
-                    <div className={"more_deleteButton"}
+                    <div className={"button more_deleteButton"}
                          onClick={() => {
                              MySwal.fire({
                                  title: "비밀번호를 입력해주세요.",
                                  input: "text",
                                  footer:
                                      <React.Fragment>
-                                         <div className={"pass_confirmButton"} onClick={() => {
+                                         <div className={"button pass_confirmButton"} onClick={() => {
                                              const password = document.getElementsByClassName("pass_input")[0].value
                                              if (password.trim() == "") {
                                                  toast.error(
@@ -192,7 +192,7 @@ const 응원 = props => {
                                      "popup": "pass_modalContainer",
                                      "content": "pass_modalContent",
                                      "actions": 'pass_action',
-                                     'confirmButton': 'pass_exitButton',
+                                     'confirmButton': 'button pass_exitButton',
                                      "footer": "pass_footer",
                                      "input": "pass_input"
                                  },
@@ -206,7 +206,7 @@ const 응원 = props => {
 
                     </div>
                     }
-                    <div className={"more_confirmButton"}
+                    <div className={"button more_confirmButton"}
                          onClick={() => {
                              MySwal.close()
                          }}>닫기
@@ -219,7 +219,7 @@ const 응원 = props => {
                 "content": "more_modalContent",
                 "actions": 'more_action',
                 "footer": "more_footer",
-                'confirmButton': 'more_exitButton',
+                'confirmButton': 'button more_exitButton',
             },
             "scrollbarPadding": false
             // "customClass": {
@@ -243,7 +243,7 @@ const 응원 = props => {
             "footer": (
                 <React.Fragment>
                     {/*<ToastContainer/>*/}
-                    <div className={"wc_confirmButton"} onClick={() => {
+                    <div className={"button wc_confirmButton"} onClick={() => {
 
                         const value = {
                             "tagName": document.querySelector('.wc_dropdown .is-selected').innerText,
@@ -309,8 +309,8 @@ const 응원 = props => {
                                         console.log(res.data.error)
                                         toast.error(
                                             <div>
-                                                {res.data.error.map((error) => {
-                                                    return <p>{error}</p>
+                                                {res.data.error.map((error, index) => {
+                                                    return <p key={index}>{error}</p>
                                                 })
                                                 }
                                             </div>
@@ -336,7 +336,7 @@ const 응원 = props => {
                                 text: "비밀번호를 설정하면 추후 글을 삭제할 때 사용할 수 있어요.",
                                 input: "text",
                                 footer: <React.Fragment>
-                                    <div className={"pass_confirmButton"} onClick={() => {
+                                    <div className={"button pass_confirmButton"} onClick={() => {
                                         const password = document.getElementsByClassName("pass_input")[0].value
                                         if (password.trim() == "") {
                                             toast.error(
@@ -358,7 +358,7 @@ const 응원 = props => {
                                         }
                                     }}>네
                                     </div>
-                                    <div className={"pass_confirmButton"} onClick={() => {
+                                    <div className={"button pass_confirmButton"} onClick={() => {
                                         WriteCheerHandler(value)
                                     }}>아니요
                                     </div>
@@ -369,7 +369,7 @@ const 응원 = props => {
                                     "popup": "pass_modalContainer",
                                     "content": "pass_modalContent",
                                     "actions": 'pass_action',
-                                    'confirmButton': 'pass_exitButton',
+                                    'confirmButton': 'button pass_exitButton',
                                     "footer": "pass_footer",
                                     "input": "pass_input"
                                 },
@@ -388,7 +388,7 @@ const 응원 = props => {
                 "content": "wc_modalContent",
                 "actions": 'wc_action',
                 "footer": "wc_footer",
-                'confirmButton': 'wc_exitButton',
+                'confirmButton': 'button wc_exitButton',
             },
             "showCancelButton": true,
             "reverseButtons": true,
@@ -513,7 +513,7 @@ const 응원 = props => {
 
                 <div className={"cheer_header"}>
                     <div className={"cheer_title"}>우리를 위한 응원 포스트잇</div>
-                    <div className={"cheer_writeButton"} onClick={() => {
+                    <div className={"button cheer_writeButton"} onClick={() => {
                         writeCheer()
                     }}>포스트잇 쓰기
                     </div>
@@ -531,14 +531,14 @@ const 응원 = props => {
                         {/*    </div>*/}
                         {/*</div>*/}
                         {cheer.data &&
-                        cheer.data.slice(cheer.startIndex, cheer.startIndex + limit).map((cheer) => {
+                        cheer.data.slice(cheer.startIndex, cheer.startIndex + limit).map((cheer, index) => {
                             const colors = ["#85f07b", "#f9a5f5", "#a9f6f4", "#f1f29a", "#8aeec3"]
 
                             const color = cheer.color
 
                             return (
 
-                                <div className={"cheer_content hvr-grow-rotate"} onClick={() => {
+                                <div key={index} className={"cheer_content hvr-grow-rotate"} onClick={() => {
                                     showMore(cheer)
                                 }}
                                      style={{
@@ -568,12 +568,12 @@ const 응원 = props => {
                     </div>
 
                     <div className={"cheer_footer"}>
-                        <div className={"cheer_prev"} onClick={() => {
+                        <div className={"button cheer_prev"} onClick={() => {
                             prev()
                         }}>
                             이전
                         </div>
-                        <div className={"cheer_next"} onClick={() => {
+                        <div className={"button cheer_next"} onClick={() => {
                             next()
                         }}>
                             다음

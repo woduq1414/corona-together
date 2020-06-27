@@ -267,10 +267,10 @@ const Fullpage = () => {
         <div>
             <nav>
                 <ul id={"myMenu"}>
-                    <li data-menuanchor="firstPage" className="active"><a href="#firstPage">코로나, 함께</a></li>
-                    <li data-menuanchor="secondPage"><a href="#secondPage/slide1">개요</a></li>
-                    <li data-menuanchor="thirdPage"><a href="#thirdPage">우리의 생각</a></li>
-                    <li data-menuanchor="fourthPage"><a href="#fourthPage">생각 모음</a></li>
+                    <li data-menuanchor="메인" className="active"><div><a href="#메인">코로나, 함께</a></div></li>
+                    <li data-menuanchor="개요"><div><a href="#개요">개요</a></div></li>
+                    <li data-menuanchor="우리의생각"><div><a href="#우리의생각">우리의 생각</a></div></li>
+                    <li data-menuanchor="생각모음"><div><a href="#생각모음">생각 모음</a></div></li>
                 </ul>
             </nav>
             <ReactFullpage
@@ -279,7 +279,7 @@ const Fullpage = () => {
 
                 licenseKey={'OPEN-SOURCE-GPLV3-LICENCE'}
                 scrollingSpeed={1000} /* Options here */
-                anchors={['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage']}
+                anchors={['메인', '개요', '우리의생각', '생각모음']}
                 menu={'#myMenu'}
                 navigation={true}
                 navigationPosition={'right'}
@@ -318,19 +318,19 @@ const Fullpage = () => {
 
                             <div className={"content"}>
                                 <ReactFullpage.Wrapper>
-                                    <div className="section" id={"메인"}>
+                                    <div className="section" id={"_메인"}>
                                         <메인/>
                                     </div>
                                     <div className="section">
-                                        <div className="slide" data-anchor="slide1" id={"개요1"}>
+                                        <div className="slide" data-anchor="첫번째" id={"_개요1"}>
                                             <개요1 animate={(t) => animate(t)}/>
                                         </div>
-                                        <div className="slide" data-anchor="slide2" id={"개요2"}>
+                                        <div className="slide" data-anchor="두번째" id={"_개요2"}>
                                             <개요2/>
                                         </div>
                                     </div>
                                     <div className="section">
-                                        <div className="slide " data-anchor="slide1" id={"힘든점"}>
+                                        <div className="slide " data-anchor="힘든점" id={"_힘든점"}>
                                             <힘든점
                                                 debouncedSize={debouncedSize}
                                                 setDiff={(t) => setDiff(t)}
@@ -342,7 +342,7 @@ const Fullpage = () => {
                                             />
 
                                         </div>
-                                        <div className="slide  " data-anchor="slide2" id={"응원"}>
+                                        <div className="slide  " data-anchor="응원" id={"_응원"}>
                                             <응원
                                                 debouncedSize={debouncedSize}
                                                 setCheer={(t) => setCheer(t)}
@@ -352,7 +352,7 @@ const Fullpage = () => {
                                                 cheer={cheer}/>
                                         </div>
                                     </div>
-                                    <div className="section">
+                                    <div className="section" id={"_생각모음"}>
 
                                         <생각모음
                                             debouncedSize={debouncedSize}

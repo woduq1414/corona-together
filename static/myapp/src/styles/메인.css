@@ -54,6 +54,15 @@
 
 @media screen and (max-width: 769px) {
     /* 모바일에서 사용될 스타일을 여기에 작성합니다. */
+
+    .comma {
+        display : none;
+    }
+    .blank {
+        display : none !important;
+    }
+
+
     div.main_vl {
         width : 70%;
         height : 0;
