@@ -35,9 +35,9 @@ class GetData(Resource):
         ## 이 글에서는 Python 내장 html.parser를 이용했다.
         # soup = BeautifulSoup(html, 'html.parser')
         tree = html.fromstring(req.content)
-        confirmed = tree.xpath('//*[@id="content"]/div/div[2]/table/tbody/tr/td[1]/text()')[0]
-        recovered = tree.xpath('//*[@id="content"]/div/div[2]/table/tbody/tr/td[2]/text()')[0]
-        tested = tree.xpath('//*[@id="content"]/div/div[4]/table/tbody/tr/td[6]/text()')[0]
+        confirmed = tree.xpath('//*[@id="content"]/div/div[2]/div[1]/ul/li[1]/dl/dd')[0].text
+        recovered = tree.xpath('//*[@id="content"]/div/div[4]/table/tbody/tr/td[2]')[0].text
+        tested = tree.xpath('//*[@id="content"]/div/div[4]/table/tbody/tr/td[8]')[0].text
 
         start_date = date(2020, 1, 20)
 

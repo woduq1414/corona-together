@@ -11,7 +11,7 @@ const 메인 = props => {
             <div className={"main_container"}>
                 <div className={"main_left"}>
                     <div className={"main_title"}>코로나<span className={"comma"}>,</span>
-                        <br/>함께<span className={"blank"}>,</span></div>
+                        <br/>함께<span className={"blank"}>,,</span></div>
                 </div>
                 <div className={"main_vl"}></div>
                 <div className={"main_right"}>
