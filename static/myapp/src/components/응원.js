@@ -88,6 +88,73 @@ const 응원 = props => {
     }
 
     function showMore(cheer) {
+        function deletePassConfirm() {
+            const password = document.getElementsByClassName("pass_input")[0].value
+            if (password.trim() == "") {
+                toast.error(
+                    "비밀번호를 입력해주세요."
+                    , {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+
+
+            } else {
+                async function DeleteCheerHandler(value) {
+
+                    const res = await DeleteCheer(value);
+
+                    switch (res.status) {
+                        case 200:
+
+
+                            GetCheerHandler();
+
+                            MySwal.close()
+                            MySwal.fire({
+                                title: "성공적으로 삭제되었습니다!",
+                                icon: 'success',
+                                "scrollbarPadding": false,
+                                "showConfirmButton": false
+                            });
+
+
+                            break;
+                        case 403:
+                        case 404:
+                            console.log(res.data.error)
+                            toast.error(
+                                res.data.error
+
+                                , {
+                                    position: "top-right",
+                                    autoClose: 3000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                });
+                            break;
+                    }
+
+                    //alert(res.data)
+                }
+
+                let value = {};
+                value.password = password;
+                value.seq = cheer.seq;
+                console.log(value)
+                DeleteCheerHandler(value)
+
+
+            }
+        }
 
         MySwal.fire({
             "html": (
@@ -113,75 +180,20 @@ const 응원 = props => {
                          onClick={() => {
                              MySwal.fire({
                                  title: "비밀번호를 입력해주세요.",
-                                 input: "text",
+                                 html:
+                                    <React.Fragment>
+
+                                        <input autoFocus className={"pass_input"} onKeyPress={(e) => {
+                                            if (e.key === 'Enter') {
+                                                deletePassConfirm();
+                                            }
+                                        }}/>
+                                    </React.Fragment>
+                                ,
                                  footer:
                                      <React.Fragment>
                                          <div className={"button pass_confirmButton"} onClick={() => {
-                                             const password = document.getElementsByClassName("pass_input")[0].value
-                                             if (password.trim() == "") {
-                                                 toast.error(
-                                                     "비밀번호를 입력해주세요."
-                                                     , {
-                                                         position: "top-right",
-                                                         autoClose: 5000,
-                                                         hideProgressBar: false,
-                                                         closeOnClick: true,
-                                                         pauseOnHover: true,
-                                                         draggable: true,
-                                                         progress: undefined,
-                                                     });
-
-
-                                             } else {
-                                                 async function DeleteCheerHandler(value) {
-
-                                                     const res = await DeleteCheer(value);
-
-                                                     switch (res.status) {
-                                                         case 200:
-
-
-                                                             GetCheerHandler();
-
-                                                             MySwal.close()
-                                                             MySwal.fire({
-                                                                 title: "성공적으로 삭제되었습니다!",
-                                                                 icon: 'success',
-                                                                 "scrollbarPadding": false,
-                                                                 "showConfirmButton": false
-                                                             });
-
-
-                                                             break;
-                                                         case 403:
-                                                         case 404:
-                                                             console.log(res.data.error)
-                                                             toast.error(
-                                                                 res.data.error
-
-                                                                 , {
-                                                                     position: "top-right",
-                                                                     autoClose: 3000,
-                                                                     hideProgressBar: false,
-                                                                     closeOnClick: true,
-                                                                     pauseOnHover: true,
-                                                                     draggable: true,
-                                                                     progress: undefined,
-                                                                 });
-                                                             break;
-                                                     }
-
-                                                     //alert(res.data)
-                                                 }
-
-                                                 let value = {};
-                                                 value.password = password;
-                                                 value.seq = cheer.seq;
-                                                 console.log(value)
-                                                 DeleteCheerHandler(value)
-
-
-                                             }
+                                             deletePassConfirm();
                                          }}>확인
                                          </div>
 
@@ -331,31 +343,45 @@ const 응원 = props => {
                             }
 
                             MySwal.close()
+
+                            function passConfirm() {
+                                const password = document.getElementsByClassName("pass_input")[0].value
+                                if (password.trim() == "") {
+                                    toast.error(
+                                        "비밀번호를 입력해주세요."
+                                        , {
+                                            position: "top-right",
+                                            autoClose: 3000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                        });
+
+
+                                } else {
+                                    value.password = password
+                                    WriteCheerHandler(value)
+                                }
+                            }
+
+
                             MySwal.fire({
                                 title: "비밀번호를 설정하실래요?",
-                                text: "비밀번호를 설정하면 추후 글을 삭제할 때 사용할 수 있어요.",
-                                input: "text",
+                                html:
+                                    <React.Fragment>
+                                        <span style={{"text-align": "center"}}>비밀번호를 설정하면 추후 글을 삭제할 때 사용할 수 있어요.</span>
+                                        <input autoFocus className={"pass_input"} onKeyPress={(e) => {
+                                            if (e.key === 'Enter') {
+                                                passConfirm();
+                                            }
+                                        }}/>
+                                    </React.Fragment>
+                                ,
                                 footer: <React.Fragment>
                                     <div className={"button pass_confirmButton"} onClick={() => {
-                                        const password = document.getElementsByClassName("pass_input")[0].value
-                                        if (password.trim() == "") {
-                                            toast.error(
-                                                "비밀번호를 입력해주세요."
-                                                , {
-                                                    position: "top-right",
-                                                    autoClose: 3000,
-                                                    hideProgressBar: false,
-                                                    closeOnClick: true,
-                                                    pauseOnHover: true,
-                                                    draggable: true,
-                                                    progress: undefined,
-                                                });
-
-
-                                        } else {
-                                            value.password = password
-                                            WriteCheerHandler(value)
-                                        }
+                                        passConfirm();
                                     }}>네
                                     </div>
                                     <div className={"button pass_confirmButton"} onClick={() => {
@@ -562,7 +588,6 @@ const 응원 = props => {
                         })
 
                         }
-
 
 
                     </div>

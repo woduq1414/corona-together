@@ -132,7 +132,7 @@ module.exports = {
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('development') //production, development
+            'process.env.NODE_ENV': JSON.stringify('production') //production, development
         }),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: true,
