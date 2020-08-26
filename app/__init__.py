@@ -2,6 +2,8 @@ from flask import Flask, Response
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 class MyResponse(Response):
     default_mimetype = 'application/xml'
@@ -14,9 +16,16 @@ def create_app(config_filename):
     app.config.from_object(config_filename)
     # app.response_class = MyResponse
 
-    from app.db import db
+    from app.db import db, Difficult, Cheer, Tag
 
     db.init_app(app)
+
+
+    # app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+    # admin = Admin(app, name='corona', template_mode='bootstrap3')
+    # admin.add_view(ModelView(Difficult, db.session))
+    # admin.add_view(ModelView(Cheer, db.session))
+    # admin.add_view(ModelView(Tag, db.session))
 
     # Blueprints
     from app.difficult.views import difficult_bp
