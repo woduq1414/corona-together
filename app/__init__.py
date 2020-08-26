@@ -2,8 +2,8 @@ from flask import Flask, Response
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
+# from flask_admin import Admin
+# from flask_admin.contrib.sqla import ModelView
 
 class MyResponse(Response):
     default_mimetype = 'application/xml'
